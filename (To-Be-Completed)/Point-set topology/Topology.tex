@@ -3,7 +3,7 @@
 \title{Point-set topology notes}
 \begin{document}
 \maketitle
-These notes are mainly my own rendition of roughly how I would teach or think about point-set topology. 
+These notes are mainly my own rendition of roughly how I would teach or think about point-set topology, written in a way to give appreciation to its basic (and usually perceived to be dry) notions. 
 \tableofcontents
 \np
 \section{Motivation}
@@ -21,27 +21,68 @@ Continuity and uniform continuity are inherently local properties, as the $\e$-$
 
 % Uniform continuity; continuity.
 \subsection{Metric spaces can only ``be so big''}
-Every metric space is implicitly tied to $\R$.
+In a metric space, every pair of points necessarily have only a finite distance between them (so in principle you could walk from any point to another). Explicitly, a metric space structure on a set $X$ involves a function $d : X \times X \to \R_{\geq 0}$, explicitly making a metric space ``locally as big as $\R$''. This prevents metric spaces from being too pathological, but also forces any metric space with interesting structure to be relatively ``small''. We describe some sensible spaces without suitable metrics for the associated geometry.
+\begin{example}[Non-metric spaces]\label{nonmetric}
+    \begin{enumerate}
+        \item (Functions) Let $(a, b) \subseteq \R$, $k \in \N_0$ and consider $C^k((a, b), \R)$. For any $[a', b'] \subseteq (a, b)$, $C^k([a, b], \R)$ is a metric space with the standard $\ell^p$ ($p \geq 1$) norm
+        $$
+            \norm{f}_p = \brac{\int_{a'}^{b'}\abs{f(x)}^p dx}^{1/p}
+        $$
+        as such functions are necessarily bounded since $[a', b']$ is compact in $\R$. This metric cannot be extended naturally to $C^k((a, b), \R)$ since the boundedness of a function $f : (a, b) \to \R$ is not guaranteed, and in fact we can have functions which grow arbitrarily fast near either $a$ or $b$, such as $f(x) = (x - a)^{-1/p}$. 
+        
+        Since every $C^k$ function on $(a, b)$ restricts to a $C^k$ function on any $[a', b'] \subseteq (a, b)$, $C^k((a, b), \R)$ can be viewed in some part as the ``limit'' of the spaces $C^k([a', b'], \R)$, under which this failure to yield a metric space can be viewed as metric spaces not being closed under these limiting procedures.
+        \item (Sequences in $\R$) The space $\R^\infty$ of real-valued sequences (viewed as infinite vectors indexed by $\N$) naturally contains a copy of $\R^n$ for each $n \in \N$, by taking the first $n$ coordinates of each sequence. Each $\R^n$ is usually equipped with the Euclidean metric, and so $\R^\infty$ with the Euclidean metric (so that the inclusions $\R^n \hookrightarrow \R^\infty$ are isometries) is not an unreasonable notion to consider. This is however too much to ask for, and the best which can be done in the world of metric spaces is $\ell^2$, defined to be exactly those sequences which have finite norm (that is, are a finite distance from $0$).
+        \item (The long line) One way to view $\R$ is as the disjoint union
+        $$
+            \R = \coprod_{n \in \Z}[n, n + 1)
+        $$
+        From this perspective $\R$ can be viewed as $\abs{\Z}$ copies of the interval $[0, 1)$ patched together at the endpoints, i.e. ``$\R \cong \Z \times [0, 1)$''. Replacing $\Z$ with a well-ordered set of bigger cardinality\footnote{This step explicitly requires the well-ordering principle, equivalent to the axiom of choice}, we can find longer line-like spaces, of which a metric cannot capture the true geometry.
+    \end{enumerate}
+\end{example}
 \subsection{Infinitude of products}
-Infinitude of products
-
+The failure of $\R^\infty$ to be a metric space in spite of $\R^n$ (for $n \geq 1$) is an example of a more general failure of metric spaces to generalise to infinite products. For a finite product 
+$$
+    X = \prod_{i = 1}^k X_i
+$$
+of metric spaces $X_i$ with associated metrics $d_i$, we have standard $\ell^p$ product metrics of the form
+$$
+    d^p((x_1, \ldots, x_k), (y_1, \ldots, y_k)) = \brac{\sum_{i = 1}^kd_i(x_i, x_j)^p}^{1/p}
+$$
+for which the canonical inclusions $X_i \hookrightarrow X$ are isometries, but as we saw in the above example, even when the index set $\Lambda$ is just countable, $$
+    X = \prod_{\a \in \Lambda} X_\a
+$$
+may not be a metric space, let alone for even larger index sets. In this sense, metric spaces are not closed under arbitrary products. To allow for a suitable notion which is closed under products, we need a more general notion independent of $\R$.
 \section{Topological spaces}
-Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still ``far enough'' from its edge). We abstract the properties of open sets from metric spaces, yielding the following notion.
+Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still locally ``far enough'' from its edge). We abstract the properties of open sets from metric spaces, yielding the following notion.
 \begin{definition}[Topological space]
     Let $X$ be a set. A topology $\Tau$ on $X$ is a set of subsets $\Tau \subseteq \P(X)$ satisfying
     \begin{enum}
         \item $\emptyset, X \in \Tau$;
-        \item if $\set{\U_\a}_{\a \in \Lambda} \subseteq \Tau$, then $\bigcup_{\a \in \Lambda} \U_\a \in \Tau$
+        \item if $\set{\U_\a}_{\a \in \Lambda}$ is a collection of sets in $\Tau$, then $\bigcup_{\a \in \Lambda} \U_\a \in \Tau$; and
+        \item if $\set{\U_i}_{i = 1}^n$ is a connection of sets in $\Tau$, then $\bigcap_{i = 1}^n \U_i \in \Tau$.
     \end{enum}
+    The sets in $\Tau$ are referred to as \emph{open sets}, and we say that a space $X$ equipped with a topology $\Tau$ is a \emph{topological space}.
+\end{definition}
+The notion of a topological space then naturally generalises the notion of a metric space, in the sense that any metric space is a topological space with its usual open sets. Since topological spaces are a vast generalisation of metric spaces, it is usually not hard to find cathartic or pathological examples of such spaces.
+
+In a metric space, to talk about the space near a given point $x$, we usually refer to the open balls $B_r(x)$. Since topological spaces are no longer tied to $\R$ (and hence have no notion of distance), we instead have the following analogue.
+\begin{definition}[Neighbourhood]
+    Let $X$ be a topological space and $x \in X$. A \emph{neighbourhood} of $x$ is an open set $\U$ containing $x$.
 \end{definition}
 
-Topological spaces
 
-Subspaces, products, quotients (universal properties)
+% We give another 
 
-Bases, subbases
 
-Morphisms (And view in terms of ``induced topologies'')
+
+% Topological spaces
+
+% Subspaces, products, quotients (universal properties)
+
+% Bases, subbases
+
+% Morphisms (And view in terms of ``induced topologies'')
+
 
 
 \end{document}
