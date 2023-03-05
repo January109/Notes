@@ -1,0 +1,47 @@
+\documentclass[11pt]{article}
+\usepackage{styles}
+\title{Point-set topology notes}
+\begin{document}
+\maketitle
+These notes are mainly my own rendition of roughly how I would teach or think about point-set topology. 
+\tableofcontents
+\np
+\section{Motivation}
+We describe some of the shortcomings with abstract metric spaces, as well as how the notion is usually adapted while still keeping some of the important underlying structure.
+\subsection{Lack of universal morphisms}
+In abstract metric spaces, (from a more algebraic perspective) there isn't a universally accepted notion of a morphism or ``structure preserving map'' $f : X \to Y$ between two metric spaces $X, Y$.
+
+We have \emph{isometries} which preserve the exact distance (i.e. by setting $d_Y(f(x_1), f(x_2)) = d_X(x_1, x_2)$). This notion is ``too strong'', as the map $f$ is then necessarily injective (forcing all such maps to necessarily be inclusions), and the image $f(X) \subseteq Y$ can be viewed equivalently as an exact ``copy'' (from a metric space perspective) of $X$ in $Y$.
+
+Weakening slightly, we have \emph{Lipschitz continuous} maps, which are such that $d_Y(f(x_1), f(x_2)) \leq Cd_X(x_1, x_2)$ for some fixed constant $C$. This notion of a ``structure preserving map'' is less restrictive and allows for non-injective maps, and so is slightly more ``sensible'' than an isometry from this perspective. The associated ``isomorphisms'' would then be the maps for which the metrics are comparable or equivalent, and so these maps are likely the most sensible morphism notion. Lipschitz continuous maps preserve most notions, but as with the remaining structure preserving maps, they do not preserve the exact distances (which as above is too strong for such a notion).
+
+We have uniform and normal continuous maps as notions of a structure preserving map. Here, \emph{continuity} of a map $f : X \to Y$ is usually phrased as saying that ``for any $\e > 0$ and any $x$ in $X$, we can find $\delta > 0$ with $d_Y(f(x), f(y)) < \e$ for any $y$ with $d_X(x, y) < \delta$'', and \emph{uniform continuity} is the same statement where the same value of $\delta$ works for all pairs of $x$ and $y$ whose images under $f$ are at most $\e$ apart. 
+
+Continuity and uniform continuity are inherently local properties, as the $\e$-$\delta$ definitions are inherently skewed towards smaller values, in the sense that if $0 < \e_1 < \e_2$, then a value of $\delta$ satisfying the (uniform) continuity constraint for $\e_1$ will also work for $\e_2$. In particular, these are local properties, and often fail to capture the geometry induced by the metric structure. For example, the identity function is a uniform equivalence (and hence homeomorphism) between $\Z$ equipped with the discrete and Euclidean metrics respectively. However, the distances associated to $\Z$ with the discrete metric would make it the analogue of a triangle with countably infinitely points, while the Euclidean metric would make it a line.
+
+% Uniform continuity; continuity.
+\subsection{Metric spaces can only ``be so big''}
+Every metric space is implicitly tied to $\R$.
+\subsection{Infinitude of products}
+Infinitude of products
+
+\section{Topological spaces}
+Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still ``far enough'' from its edge). We abstract the properties of open sets from metric spaces, yielding the following notion.
+\begin{definition}[Topological space]
+    Let $X$ be a set. A topology $\Tau$ on $X$ is a set of subsets $\Tau \subseteq \P(X)$ satisfying
+    \begin{enum}
+        \item $\emptyset, X \in \Tau$;
+        \item if $\set{\U_\a}_{\a \in \Lambda} \subseteq \Tau$, then $\bigcup_{\a \in \Lambda} \U_\a \in \Tau$
+    \end{enum}
+\end{definition}
+
+Topological spaces
+
+Subspaces, products, quotients (universal properties)
+
+Bases, subbases
+
+Morphisms (And view in terms of ``induced topologies'')
+
+
+\end{document}
