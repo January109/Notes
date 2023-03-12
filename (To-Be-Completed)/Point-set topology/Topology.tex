@@ -53,6 +53,8 @@ for which the canonical inclusions $X_i \hookrightarrow X$ are isometries, but a
 $$
 may not be a metric space, let alone for even larger index sets. In this sense, metric spaces are not closed under arbitrary products. To allow for a suitable notion which is closed under products, we need a more general notion independent of $\R$.
 \section{Topological spaces}
+Unless otherwise stated, $X, Y$ and $Z$ are topological spaces, and $\Tau_S$ (or sometimes simply $\Tau$) is the set of open sets of $S$.
+\subsection{Basic definitions}
 Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still locally ``far enough'' from its edge). We abstract the properties of open sets from metric spaces, yielding the following notion.
 \begin{definition}[Topological space]
     Let $X$ be a set. A topology $\Tau$ on $X$ is a set of subsets $\Tau \subseteq \P(X)$ satisfying
@@ -67,22 +69,58 @@ The notion of a topological space then naturally generalises the notion of a met
 
 In a metric space, to talk about the space near a given point $x$, we usually refer to the open balls $B_r(x)$. Since topological spaces are no longer tied to $\R$ (and hence have no notion of distance), we instead have the following analogue.
 \begin{definition}[Neighbourhood]
-    Let $X$ be a topological space and $x \in X$. A \emph{neighbourhood} of $x$ is an open set $\U$ containing $x$.
+    Let $x \in X$. A \emph{neighbourhood} of $x$ is an open set $\U$ containing $x$.
 \end{definition}
+As a natural generalisation of metric spaces, it will also be convenient to talk about closed sets, which we can view in the same light.
+\begin{definition}[Closed set]
+    We say that $C \subseteq X$ is \emph{closed} if $C^c$ is open.
+\end{definition}
+The above definition is relatively opaque, and appealing to our metric space intuition, we would expect a closed set to ``contain its boundary points''. To make this precise, we describe the following types of points.
+\begin{definition}[Limit point; isolated point]
+    Let $A \subseteq X$ We say that a point $x \in X$ is
+    \begin{enum}
+        \item a \emph{limit point of $A$} if every neighbourhood $\U \ni x$ has non-empty intersection with $A \setminus \set{x}$, that is 
+        $$
+            (A \setminus \set{x}) \cap \U \neq \emptyset
+        $$
+        \item an \emph{isolated point of $A$} and there is a neighbourhood $\U \ni x$ which does not meet $A \setminus \set{x}$.
+    \end{enum}
+\end{definition}
+The limit points of a set are thus those for which ``every neighbourhood meets the set'', or for which other points in the set ``approximate the point well''. The constraint $(A \setminus \set{x}) \cap \U \neq \emptyset$ can instead be written $A \cap \U \supsetneq \set{x}$. The isolated points are then in some sense an opposite, in that they are points in the set ``isolated from the remainder of the set'', or points not ``well-approximated by other points in the set''.
 
+An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated in part by our notion of limit points. Keeping with our intuition that closed sets are those which contain their boundaries, we may expect the following result.
+\begin{proposition}
+    A subset $A \subseteq X$ is closed if and only if it contains all its limit points.
+\end{proposition}
+\begin{proof}
+    $\implies$: Let $A$ be closed. Then $A^c$ is a neighbourhood of any $x \not\in A$ which does not meet $A$, and so as any limit point $x$ of $A$ cannot have such a neighbourhood, we must have $x \in A$.
 
-% We give another 
+    $\impliedby$: Suppose $A$ contains all its limit points. Then every $x \not\in A$ has a neighbourhood $x \in \U_x \subseteq A^c$, and so taking the union of all such $\U_x$, we find that
+    $$
+        A^c = \bigcup_{x \not\in A}\U_x
+    $$
+    is open, so $A$ is closed.
+\end{proof}
+% Open sets are ``large'' and closed sets are ``small''
 
+% In this case, for any subset $A \subseteq X$, we can talk relatively about the smallest open set contained in (i.e. the ``smallest large set'' relative), and the largest closed set containing (i.e. the ``largest small set'' relative).
 
+\subsection{Continuous maps}
 
-% Topological spaces
+% Limit points, isolated points
+
+% Continuity from a metric and algebraic perspective
+% Classical metric space formulation
+
+% ``Arrows'' i.e. morphisms
+% Pullbacks of open sets, compatibilities of topologies
+% Homeomorphisms specifying that topological properties are fully preserved
 
 % Subspaces, products, quotients (universal properties)
 
 % Bases, subbases
 
-% Morphisms (And view in terms of ``induced topologies'')
-
-
+% Sequences and related discussion
+%   In abstract metric space theory, sequences play an important role and are on the same level as many non-sequence constructions.
 
 \end{document}
