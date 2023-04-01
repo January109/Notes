@@ -72,7 +72,17 @@ Leaving only the notion of an open set, which we can think of in the same way as
     \end{enum}
     The sets in $\Tau$ are referred to as \emph{open sets}, and we say that a space $X$ equipped with a topology $\Tau$ is a \emph{topological space}.
 \end{definition}
-The notion of a topological space then naturally generalises the notion of a metric space, in the sense that any metric space is a topological space with its usual open sets. Since topological spaces are a vast generalisation of metric spaces, it is usually not hard to find cathartic or pathological examples of such spaces.
+The notion of a topological space then naturally generalises the notion of a metric space, in the sense that any metric space is a topological space with its usual open sets. Since topological spaces are a vast generalisation of metric spaces, it is usually not hard to find cathartic or pathological examples of such spaces, though we will mostly avoid unintuitive counterexamples to make these concepts as illuminating as possible.
+\begin{example}[Topological spaces]
+    \begin{enum2}
+        \item If $X$ is a metric space, the open sets (in the metric sense) form a topology, and this is called the \emph{metric topology} on $X$.
+        \item If $X$ is a set, we have two ``simple topologies'':
+        \begin{enum2}
+            \item The discrete topology is given by $\Tau = \P(X)$. This corresponds to the metric topology where $X$ is given the discrete metric.
+            \item The trivial topology is given by $\Tau = \set{\emptyset, X}$. This can be thought of as treating all points in $X$ as ``close enough to be inseparable'', and when $X$ is non-empty, this is equivalent to a single-point topological space in some sense.
+        \end{enum2}
+    \end{enum2}
+\end{example}
 
 In a metric space, to talk about the space near a given point $x$, we usually refer to the open balls $B_r(x)$. Since topological spaces are no longer tied to $\R$ (and hence have no notion of distance), we instead have the following analogue.
 \begin{definition}[Neighbourhood]
@@ -85,6 +95,7 @@ As a natural generalisation of metric spaces, it will also be convenient to talk
 % Dual to definition of open sets
 
 The above definition is relatively opaque, and appealing to our metric space intuition, we would expect a closed set to ``contain its boundary points''. To make this precise, we describe the following types of points.
+% Limit points, isolated points
 \begin{definition}[Limit point; isolated point]
     Let $A \subseteq X$ We say that a point $x \in X$ is
     \begin{enum}
@@ -147,15 +158,96 @@ The definitions of the interior and closure of $A$ correspond to saying that $\i
 \begin{proof}
     To show (1), we see that the forward inclusion follows as $\interior(A) \subseteq A$ is a term in the union, and the latter follows as each individual $O \subseteq A$ is contained in $\interior(A)$. Similarly, in $(2)$, the forward inclusion follows as every $C \supseteq A$ has $C \supseteq \ol{A}$, and the reverse inclusion comes as $\ol{A} \supseteq A$ is a term in the union.
 
-    We give a slightly more conceptual proof, and then a proof based on (1) and (2). Notice that $\interior(A)^c \supseteq A^c$ is closed, and so $\interior(A)^c \supseteq \ol{A^c}$ as $\ol{A^c}$ is the minimal closed set containing $A^c$, and thus $\interior(A) \subseteq (\ol{A^c})^c$. Similarly, $(\ol{A^c})^c \subseteq A$ is open, and so $(\ol{A^c})^c \subseteq \interior(A)$ since $\interior(A)$ is the maximal open set contained in $A$.
+    We give a slightly more conceptual proof, and then a proof based on (1) and (2). Note that $\interior(A)^c \supseteq A^c$ is closed, and so $\interior(A)^c \supseteq \ol{A^c}$ as $\ol{A^c}$ is the minimal closed set containing $A^c$, and thus $\interior(A) \subseteq (\ol{A^c})^c$. Similarly, $(\ol{A^c})^c \subseteq A$ is open, so $(\ol{A^c})^c \subseteq \interior(A)$ since $\interior(A)$ is the maximal open set contained in $A$.
 
     Alternatively, we can compute
     $$
         (\ol{A^c})^c = \brac{\bigcap_{C \supseteq A^c, C^c \in \Tau} C}^c = \bigcup_{C^c \subseteq A, C^c \in \Tau}C^c = \interior(A)
     $$
-    by reindexing $O \defeq C^c$. (4) is immediate from the fact that $(A^c)^c = A$.
+    by reindexing $O \defeq C^c$. (4) follows as $\partial A^c = \ol{A^c} \cap \ol{(A^c)^c} = \ol{A} \cap \ol{A^c} = \partial A$.
+\end{proof}
+\subsection{Bases}
+In other (algebraic) objects such as vector spaces and ideals in rings, it is usually equivalent and easier to consider a generating subset. In these cases we tend to prefer minimal generating subsets (such as a basis for a vector space), as a smaller generating subset tends to be more illuminating to the structure of the associated object. We have the following analogous notion in a topological space.
+\begin{definition}[Basis]
+    A \emph{basis (or base) for $X$} is a subset $\B \subseteq \Tau$ with the property that for every $U \in \Tau$, there is $\B_U \subseteq \B$ such that
+    $$
+        U = \bigcup_{B \in \B_U}B
+    $$
+\end{definition}
+In this sense a basis $\B$ is a ``spanning set'' for $\Tau$ (in the sense that every $U \in \Tau$ can be reached as a union of $B \in \B$). In comparison to vector spaces we don't have a sensible notion of ``independence'' for open sets, nor is there a sensible notion of a minimal subset of $\Tau$ with the above properties in general.
+
+The following examples illustrate the notion of a basis.
+\begin{example}
+    \begin{enum2}
+    \item $\Tau$ is a basis for $X$, but this does not give any additional insight into the structure of the topological space.
+    \item For $X = \R^n$ with the usual (metric) topology, we have a countable basis given by balls of rational radius with rational centre. That is,
+    $$
+        \B_{\R^n} = \set{B_r(x) \mid r \in \Q, x \in \Q^n}
+    $$
+    In fact, for any dense $E \subseteq \R$, the collection of $B_r(x)$ for $r \in E$ and $x \in E^n$ is a basis for $\R^n$ as a topological space.
+    \end{enum2}
+\end{example}
+We should expect that a basis for a topological space cannot be ``much smaller'' than the space itself. The following result gives an explicit bound on the size of a basis relative to the size of the ambient space, and shows that the above bases for $\R^n$ are of minimal cardinality.
+\begin{proposition}
+    Let $\B$ be a basis for $X$. Then $\abs{\Tau} \leq \abs{\P(\B)}$.
+\end{proposition}
+\begin{proof}
+    Let $\B \subseteq \Tau$ be a basis. Then
+    $$
+        \Tau = \set{\bigcup_{B \in \B_i}B \ \bigg| \ \B_i \subseteq \B}
+    $$
+    as each set in $\Tau$ is a union of sets in $\B$. The latter set is indexed by $\P(\B)$, and so the map
+    \begin{align*}
+        \P(\B) &\to \Tau \\
+        \B_i &\mapsto \bigcup_{B \in \B_i}B
+    \end{align*}
+    is surjective, and taking cardinalities yields $\abs{\Tau} \leq \abs{\P(\B)}$.
+\end{proof}
+We have an equivalent and sometimes more useful formulation of what it means to be a basis. In essence, the idea of this statement comes from the fact that $U = \bigcup_{i \in I} U_i$ if and only if every $x \in U$ has $x \in U_i \subseteq U$.
+\begin{lemma}
+    A subset $\B \subseteq \Tau$ is a basis for $X$ if and only if for every $U \in \Tau$ and $x \in U$, there is $B_x \in \B$ with $x \in B_{x, U} \subseteq U$.
+\end{lemma}
+\begin{proof}
+    If $\B \subseteq \Tau$ is a basis for $X$, each $U = \bigcup_{B \in \B_U}B$ for some $\B_U \subseteq \B$, and so each $x \in U$ has some $B$ (which we call $B_{x, U}$) so that $x \in B_{x, U} \subseteq \B_u$. Alternatively, if $\B$ has the latter property, then each $U = \bigcup_{x \in U} B_{x, U}$.
+\end{proof}
+If $X$ is a set, we may also ask what collections of subsets of $X$ form bases for topologies, and this is answered exactly in the following result.
+\begin{proposition}
+    A subset $\B \subseteq \P(X)$ is a basis for a (unique) topology on $X$ if and only if
+    \begin{enum}
+        \item $\bigcup_{B \in \B}B = X$; and
+        \item For all $B_1, B_2 \in \Tau$ and $x \in B_1 \cap B_2$, there is $B_3$ with $x \in B_3 \subseteq B_1 \cap B_2$.
+    \end{enum}
+\end{proposition}
+\begin{proof}
+    If $\B$ is a basis for some topology $\Tau$, then $X$ is a union of some sets in $\B$, so 
+    $$
+        X = \bigcup_{B \in \B_i}B \subseteq \bigcup_{B \in \B}B
+    $$
+    for some $\B_i \subseteq \B$ and each $B \subseteq X$, so $\bigcup_{B \in \B_i}B \subseteq X$, showing this equality. If $B_1, B_2 \in \B$, then $B_1 \cap B_2 = \bigcup_{B \in B_i}B$ for some $\B_i \subseteq \B$, and so each $x \in B_1 \cap B_2$ is in some $B_3 \in \B_i \subseteq \B$.
+
+    Now suppose that $\B$ satisfies the two given constraints. Then
+    \begin{enum}
+        \item $\bigcup_{B \in \emptyset} B = \emptyset$ and $\bigcup_{B \in \B} B = X$;
+        \item If $B_i = \bigcup_{B \in \B_i} B$ for a collection of subsets $\set{B_i \mid i \in I}$, then $\bigcup_{i \in I} \B_i \subseteq \B$, and
+        $$
+            \bigcup_{i \in I} B_i = \bigcup_{B \in \bigcup_{i \in I} \B_i} B
+        $$
+        \item It suffices to show that $B_1 \cap B_2$ is a union of sets from $\B$. For each $x \in B_1 \cap B_2$ there is $B_x \in \B$ with $x \in B_x \subseteq B_1 \cap B_2$, and so writing
+        $$
+            \B_{12} = \set{B_x \mid x \in B_1 \cap B_2} \subseteq \B
+        $$
+        we have
+        $$
+            B_1 \cap B_2 = \bigcup_{x \in B_1 \cap B_2} B_x = \bigcup_{B \in \B_{12}} B
+        $$
+    \end{enum}
 \end{proof}
 
+
+% Basis reformulation
+% Topology basis lemma
+
+% Subbases
 
 % Open sets are ``large'' and closed sets are ``small''
 
@@ -168,8 +260,6 @@ The definitions of the interior and closure of $A$ correspond to saying that $\i
 % Density
 
 \subsection{Continuous maps}
-
-% Limit points, isolated points
 
 % Continuity from a metric and algebraic perspective
 % Classical metric space formulation
