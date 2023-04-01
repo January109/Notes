@@ -31,7 +31,14 @@ In a metric space, every pair of points necessarily have only a finite distance 
         as such functions are necessarily bounded since $[a', b']$ is compact in $\R$. This metric cannot be extended naturally to $C^k((a, b), \R)$ since the boundedness of a function $f : (a, b) \to \R$ is not guaranteed, and in fact we can have functions which grow arbitrarily fast near either $a$ or $b$, such as $f(x) = (x - a)^{-1/p}$. 
         
         Since every $C^k$ function on $(a, b)$ restricts to a $C^k$ function on any $[a', b'] \subseteq (a, b)$, $C^k((a, b), \R)$ can be viewed in some part as the ``limit'' of the spaces $C^k([a', b'], \R)$, under which this failure to yield a metric space can be viewed as metric spaces not being closed under these limiting procedures.
-        \item (Sequences in $\R$) The space $\R^\infty$ of real-valued sequences (viewed as infinite vectors indexed by $\N$) naturally contains a copy of $\R^n$ for each $n \in \N$, by taking the first $n$ coordinates of each sequence. Each $\R^n$ is usually equipped with the Euclidean metric, and so $\R^\infty$ with the Euclidean metric (so that the inclusions $\R^n \hookrightarrow \R^\infty$ are isometries) is not an unreasonable notion to consider. This is however too much to ask for, and the best which can be done in the world of metric spaces is $\ell^2$, defined to be exactly those sequences which have finite norm (that is, are a finite distance from $0$).
+        % Update this to the inner product construction.
+        \item (Sequences in $\R$) The space $\R^\infty$ of real-valued sequences (viewed as infinite vectors indexed by $\N$) naturally contains a copy of $\R^n$ for each $n \in \N$, by taking the first $n$ coordinates of each sequence. Each $\R^n$ is usually equipped with the Euclidean metric, and so $\R^\infty$ with the Euclidean metric (so that the inclusions $\R^n \hookrightarrow \R^\infty$ are isometries) is not an unreasonable notion to consider. 
+        
+        We can actually achieve this, but in a rather unsatisfying fashion involving the axiom of choice: beginning with the standard basis vectors $E = \set{e_i \mid i \in \N}$, by Zorn's lemma (equivalent to AC) we can extend $E$ to a basis $\mathcal{E}$ of $\R^\infty$. Define an inner product on $\R^\infty$ by declaring $\mathcal{E}$ to be orthonormal. This induces a norm and hence a metric, and the inclusions are indeed isometries. This construction is however effectively useless from a metric space perspective - the use of the axiom of choice means that we cannot write down $\mathcal{E}$, and actually computing distances between most vectors\footnote{i.e. those with infinitely non-zero coefficients when expressed as an arbitrary formal linear combination of $e_i$} is not feasible. The closest commonly used construction is $\ell^2$, which is the set of $x = (x_n)_{n \in \N} \in \R^\infty$ for which the ``norm''
+        $$
+            \norm{x}_{\ell^2} = \brac{\sum_{k = 1}^\infty x_n^2}^{1/2}
+        $$
+        makes sense.
         \item (The long line) One way to view $\R$ is as the disjoint union
         $$
             \R = \coprod_{n \in \Z}[n, n + 1)
@@ -53,7 +60,7 @@ for which the canonical inclusions $X_i \hookrightarrow X$ are isometries, but a
 $$
 may not be a metric space, let alone for even larger index sets. In this sense, metric spaces are not closed under arbitrary products. To allow for a suitable notion which is closed under products, we need a more general notion independent of $\R$.
 \section{Topological spaces}
-Unless otherwise stated, $X, Y$ and $Z$ are topological spaces, and $\Tau_S$ (or sometimes simply $\Tau$) is the set of open sets of $S$.
+Unless otherwise stated, $X, Y$ and $Z$ are topological spaces, and $\Tau_S$ (or sometimes simply $\Tau$) is the set of open sets of $S$. The definitions we give in this section are ``very loose'', and it is not difficult to find counterintuitive examples. In any case, we try to paint a certain picture with each definition and avoid counterintuitive examples, to follow a roughly intuitive and sensible progression.
 \subsection{Basic definitions}
 Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still locally ``far enough'' from its edge). We abstract the properties of open sets from metric spaces, yielding the following notion.
 \begin{definition}[Topological space]
@@ -73,8 +80,10 @@ In a metric space, to talk about the space near a given point $x$, we usually re
 \end{definition}
 As a natural generalisation of metric spaces, it will also be convenient to talk about closed sets, which we can view in the same light.
 \begin{definition}[Closed set]
-    We say that $C \subseteq X$ is \emph{closed} if $C^c$ is open.
+    We say that $C \subseteq X$ is \emph{closed} if $X \setminus C = C^c$ is open.
 \end{definition}
+% Dual to definition of open sets
+
 The above definition is relatively opaque, and appealing to our metric space intuition, we would expect a closed set to ``contain its boundary points''. To make this precise, we describe the following types of points.
 \begin{definition}[Limit point; isolated point]
     Let $A \subseteq X$ We say that a point $x \in X$ is
@@ -86,7 +95,7 @@ The above definition is relatively opaque, and appealing to our metric space int
         \item an \emph{isolated point of $A$} and there is a neighbourhood $\U \ni x$ which does not meet $A \setminus \set{x}$.
     \end{enum}
 \end{definition}
-The limit points of a set are thus those for which ``every neighbourhood meets the set'', or for which other points in the set ``approximate the point well''. The constraint $(A \setminus \set{x}) \cap \U \neq \emptyset$ can instead be written $A \cap \U \supsetneq \set{x}$. The isolated points are then in some sense an opposite, in that they are points in the set ``isolated from the remainder of the set'', or points not ``well-approximated by other points in the set''.
+The limit points of a set are thus those which are ``close to the set'', captured by the notion that every open set ``nearby'' also touches the set. We can also think of these as the points which are ``approximated well'' by other points in the set. The constraint $(A \setminus \set{x}) \cap \U \neq \emptyset$ can instead be written $A \cap \U \supsetneq \set{x}$. The isolated points are then in some sense an opposite, in that they are points in the set ``far from other points'' or ``isolated from the rest of the set'', or points not ``well-approximated by other points in the set''.
 
 An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated in part by our notion of limit points. Keeping with our intuition that closed sets are those which contain their boundaries, we may expect the following result.
 \begin{proposition}
@@ -101,9 +110,62 @@ An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated i
     $$
     is open, so $A$ is closed.
 \end{proof}
+We can generally think of the open sets as ``large'', as the sets which are ``unbounded'' when viewed from internally. On the flip side, most closed sets can generally be viewed as ``small'', or for which we could ``reach a boundary''. This way of thinking of closed sets however breaks down when talking about sets without boundaries, such as $\emptyset$ or the whole space $X$.
+
+Continuing with this perspective, for any subset $A \subseteq X$, we can talk relatively about the smallest open set inside and outside (i.e. the ``smallest large set'' in the set and its complement), and the largest closed set containing (i.e. the ``largest small set'' containing the set). We can further talk more formally about a ``boundary'', which should be the points that are close to both the set and its boundary.
+\begin{definition}[Interior, exterior, closure, boundary]
+    Let $A \subseteq X$.
+    \begin{enum}
+        \item The \emph{interior $\interior(A)$ of $A$} is the unique open set satisfying 
+        \begin{enum2}
+            \item $\interior(A) \subseteq A$; and
+            \item if $O \subseteq A$ is open, $O \subseteq \interior(A)$.
+        \end{enum2}
+        \item The \emph{exterior $\ext(A)$ of $A$} is the interior of $A^c$.
+        \item The \emph{closure $\ol{A}$ of $A$} is the unique closed set satisfying
+        \begin{enum2}
+            \item $A \subseteq \ol{A}$; and
+            \item if $C \supseteq A$ is closed, then $C \supseteq \ol{A}$.
+        \end{enum2}
+        \item The \emph{boundary $\partial A$ of $A$} is $\partial A \defeq \ol{A} \cap \ol{A^c}$.
+    \end{enum}
+\end{definition}
+The definitions of the interior and closure of $A$ correspond to saying that $\interior(A)$ is the largest open set contained in $A$, and that $\ol A$ is the smallest closed set containing $A$. The following proposition makes this precise, alongside giving a way in which the interior and closure of a set are ``dual''.
+\begin{proposition}
+    Let $A \subseteq X$. Then
+    \begin{enum}
+        \item $$
+            \interior(A) = \bigcup_{O \subseteq A, O \in \Tau} O
+        $$
+        \item $$
+            \ol{A} = \bigcap_{C \supseteq A, C^c \in \Tau} C
+        $$
+        \item $\interior(A) = (\ol{A^c})^c$, or equivalently $\ol{A} = \interior(A^c)^c = \ext(A)^c$
+        \item $\partial A = \partial A^c$
+    \end{enum}
+\end{proposition}
+\begin{proof}
+    To show (1), we see that the forward inclusion follows as $\interior(A) \subseteq A$ is a term in the union, and the latter follows as each individual $O \subseteq A$ is contained in $\interior(A)$. Similarly, in $(2)$, the forward inclusion follows as every $C \supseteq A$ has $C \supseteq \ol{A}$, and the reverse inclusion comes as $\ol{A} \supseteq A$ is a term in the union.
+
+    We give a slightly more conceptual proof, and then a proof based on (1) and (2). Notice that $\interior(A)^c \supseteq A^c$ is closed, and so $\interior(A)^c \supseteq \ol{A^c}$ as $\ol{A^c}$ is the minimal closed set containing $A^c$, and thus $\interior(A) \subseteq (\ol{A^c})^c$. Similarly, $(\ol{A^c})^c \subseteq A$ is open, and so $(\ol{A^c})^c \subseteq \interior(A)$ since $\interior(A)$ is the maximal open set contained in $A$.
+
+    Alternatively, we can compute
+    $$
+        (\ol{A^c})^c = \brac{\bigcap_{C \supseteq A^c, C^c \in \Tau} C}^c = \bigcup_{C^c \subseteq A, C^c \in \Tau}C^c = \interior(A)
+    $$
+    by reindexing $O \defeq C^c$. (4) is immediate from the fact that $(A^c)^c = A$.
+\end{proof}
+
+
 % Open sets are ``large'' and closed sets are ``small''
 
-% In this case, for any subset $A \subseteq X$, we can talk relatively about the smallest open set contained in (i.e. the ``smallest large set'' relative), and the largest closed set containing (i.e. the ``largest small set'' relative).
+% Open sets can be viewed (from internally) as ``unbounded'', while closed sets have some notion of ``boundary''.
+
+% Bases and ``spanning''
+
+% Equivalent formulation for a basis
+
+% Density
 
 \subsection{Continuous maps}
 
@@ -114,13 +176,32 @@ An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated i
 
 % ``Arrows'' i.e. morphisms
 % Pullbacks of open sets, compatibilities of topologies
+
+% Equivalent formulations
+
 % Homeomorphisms specifying that topological properties are fully preserved
+% Remark about languages
+
+% Bases, subbases
+
+\subsection{Separability}
+% Separable, first and second countability, T1 through to T4 spaces.
+
+\subsection{Induced topologies}
 
 % Subspaces, products, quotients (universal properties)
 
-% Bases, subbases
+\subsection{Compactness}
+
+\subsection{Connectedness}
+
+% Connectedness, compactness
+
+\subsection{Locality}
+% Local variations of properties
 
 % Sequences and related discussion
 %   In abstract metric space theory, sequences play an important role and are on the same level as many non-sequence constructions.
 
+% Algebraic perspectives?
 \end{document}
