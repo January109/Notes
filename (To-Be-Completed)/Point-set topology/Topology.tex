@@ -88,7 +88,7 @@ In a metric space, to talk about the space near a given point $x$, we usually re
 \begin{definition}[Neighbourhood]
     Let $x \in X$. A \emph{neighbourhood} of $x$ is an open set $\U$ containing $x$.
 \end{definition}
-As a natural generalisation of metric spaces, it will also be convenient to talk about closed sets, which we can view in the same light.
+The statement that two points are in the same open set can then be viewed as saying the points are ``somewhat close'', with the notion of ``somewhat'' being slightly ambiguous (since the space $X$ is a neighbourhood of every point), though the smaller the neighbourhood, the closer two points in that neighbourhood can be thought of. As a natural generalisation of metric spaces, it will also be convenient to talk about closed sets, which we can view in the same light.
 \begin{definition}[Closed set]
     We say that $C \subseteq X$ is \emph{closed} if $X \setminus C = C^c$ is open.
 \end{definition}
@@ -112,15 +112,15 @@ An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated i
 \begin{proposition}
     A subset $A \subseteq X$ is closed if and only if it contains all its limit points.
 \end{proposition}
-\begin{proof}
-    $\implies$: Let $A$ be closed. Then $A^c$ is a neighbourhood of any $x \not\in A$ which does not meet $A$, and so as any limit point $x$ of $A$ cannot have such a neighbourhood, we must have $x \in A$.
+% \begin{proof}
+%     $\implies$: Let $A$ be closed. Then $A^c$ is a neighbourhood of any $x \not\in A$ which does not meet $A$, and so as any limit point $x$ of $A$ cannot have such a neighbourhood, we must have $x \in A$.
 
-    $\impliedby$: Suppose $A$ contains all its limit points. Then every $x \not\in A$ has a neighbourhood $x \in \U_x \subseteq A^c$, and so taking the union of all such $\U_x$, we find that
-    $$
-        A^c = \bigcup_{x \not\in A}\U_x
-    $$
-    is open, so $A$ is closed.
-\end{proof}
+%     $\impliedby$: Suppose $A$ contains all its limit points. Then every $x \not\in A$ has a neighbourhood $x \in \U_x \subseteq A^c$, and so taking the union of all such $\U_x$, we find that
+%     $$
+%         A^c = \bigcup_{x \not\in A}\U_x
+%     $$
+%     is open, so $A$ is closed.
+% \end{proof}
 We can generally think of the open sets as ``large'', as the sets which are ``unbounded'' when viewed from internally. On the flip side, most closed sets can generally be viewed as ``small'', or for which we could ``reach a boundary''. This way of thinking of closed sets however breaks down when talking about sets without boundaries, such as $\emptyset$ or the whole space $X$.
 
 Continuing with this perspective, for any subset $A \subseteq X$, we can talk relatively about the smallest open set inside and outside (i.e. the ``smallest large set'' in the set and its complement), and the largest closed set containing (i.e. the ``largest small set'' containing the set). We can further talk more formally about a ``boundary'', which should be the points that are close to both the set and its boundary.
@@ -155,17 +155,22 @@ The definitions of the interior and closure of $A$ correspond to saying that $\i
         \item $\partial A = \partial A^c$
     \end{enum}
 \end{proposition}
-\begin{proof}
-    To show (1), we see that the forward inclusion follows as $\interior(A) \subseteq A$ is a term in the union, and the latter follows as each individual $O \subseteq A$ is contained in $\interior(A)$. Similarly, in $(2)$, the forward inclusion follows as every $C \supseteq A$ has $C \supseteq \ol{A}$, and the reverse inclusion comes as $\ol{A} \supseteq A$ is a term in the union.
+% \begin{proof}
+%     To show (1), we see that the forward inclusion follows as $\interior(A) \subseteq A$ is a term in the union, and the latter follows as each individual $O \subseteq A$ is contained in $\interior(A)$. Similarly, in $(2)$, the forward inclusion follows as every $C \supseteq A$ has $C \supseteq \ol{A}$, and the reverse inclusion comes as $\ol{A} \supseteq A$ is a term in the union.
 
-    We give a slightly more conceptual proof, and then a proof based on (1) and (2). Note that $\interior(A)^c \supseteq A^c$ is closed, and so $\interior(A)^c \supseteq \ol{A^c}$ as $\ol{A^c}$ is the minimal closed set containing $A^c$, and thus $\interior(A) \subseteq (\ol{A^c})^c$. Similarly, $(\ol{A^c})^c \subseteq A$ is open, so $(\ol{A^c})^c \subseteq \interior(A)$ since $\interior(A)$ is the maximal open set contained in $A$.
+%     We give a slightly more conceptual proof, and then a proof based on (1) and (2). Note that $\interior(A)^c \supseteq A^c$ is closed, and so $\interior(A)^c \supseteq \ol{A^c}$ as $\ol{A^c}$ is the minimal closed set containing $A^c$, and thus $\interior(A) \subseteq (\ol{A^c})^c$. Similarly, $(\ol{A^c})^c \subseteq A$ is open, so $(\ol{A^c})^c \subseteq \interior(A)$ since $\interior(A)$ is the maximal open set contained in $A$.
 
-    Alternatively, we can compute
-    $$
-        (\ol{A^c})^c = \brac{\bigcap_{C \supseteq A^c, C^c \in \Tau} C}^c = \bigcup_{C^c \subseteq A, C^c \in \Tau}C^c = \interior(A)
-    $$
-    by reindexing $O \defeq C^c$. (4) follows as $\partial A^c = \ol{A^c} \cap \ol{(A^c)^c} = \ol{A} \cap \ol{A^c} = \partial A$.
-\end{proof}
+%     Alternatively, we can compute
+%     $$
+%         (\ol{A^c})^c = \brac{\bigcap_{C \supseteq A^c, C^c \in \Tau} C}^c = \bigcup_{C^c \subseteq A, C^c \in \Tau}C^c = \interior(A)
+%     $$
+%     by reindexing $O \defeq C^c$. (4) follows as $\partial A^c = \ol{A^c} \cap \ol{(A^c)^c} = \ol{A} \cap \ol{A^c} = \partial A$.
+% \end{proof}
+As in metric spaces, it will sometimes be easier (cardinality-wise or otherwise) to consider \emph{dense} subsets, that is, those which can ``approximate'' all points in the space. The notion is the same as in metric spaces: a subset where every point in the ambient space is a limit point.
+\begin{definition}[Dense subset]
+    A subset $E \subseteq X$ is dense if $\ol{E} = X$.
+\end{definition}
+Equivalently, $E \subseteq X$ is dense if for each $x \in X$, every neighbourhood $U \ni X$ contains a point in $E$, i.e. $E \cap U \neq \emptyset$.
 \subsection{Bases}
 In other (algebraic) objects such as vector spaces and ideals in rings, it is usually equivalent and easier to consider a generating subset. In these cases we tend to prefer minimal generating subsets (such as a basis for a vector space), as a smaller generating subset tends to be more illuminating to the structure of the associated object. We have the following analogous notion in a topological space.
 \begin{definition}[Basis]
@@ -191,25 +196,25 @@ We should expect that a basis for a topological space cannot be ``much smaller''
 \begin{proposition}
     Let $\B$ be a basis for $X$. Then $\abs{\Tau} \leq \abs{\P(\B)}$.
 \end{proposition}
-\begin{proof}
-    Let $\B \subseteq \Tau$ be a basis. Then
-    $$
-        \Tau = \set{\bigcup_{B \in \B_i}B \ \bigg| \ \B_i \subseteq \B}
-    $$
-    as each set in $\Tau$ is a union of sets in $\B$. The latter set is indexed by $\P(\B)$, and so the map
-    \begin{align*}
-        \P(\B) &\to \Tau \\
-        \B_i &\mapsto \bigcup_{B \in \B_i}B
-    \end{align*}
-    is surjective, and taking cardinalities yields $\abs{\Tau} \leq \abs{\P(\B)}$.
-\end{proof}
+% \begin{proof}
+%     Let $\B \subseteq \Tau$ be a basis. Then
+%     $$
+%         \Tau = \set{\bigcup_{B \in \B_i}B \ \bigg| \ \B_i \subseteq \B}
+%     $$
+%     as each set in $\Tau$ is a union of sets in $\B$. The latter set is indexed by $\P(\B)$, and so the map
+%     \begin{align*}
+%         \P(\B) &\to \Tau \\
+%         \B_i &\mapsto \bigcup_{B \in \B_i}B
+%     \end{align*}
+%     is surjective, and taking cardinalities yields $\abs{\Tau} \leq \abs{\P(\B)}$.
+% \end{proof}
 We have an equivalent and sometimes more useful formulation of what it means to be a basis. In essence, the idea of this statement comes from the fact that $U = \bigcup_{i \in I} U_i$ if and only if every $x \in U$ has $x \in U_i \subseteq U$.
 \begin{lemma}
-    A subset $\B \subseteq \Tau$ is a basis for $X$ if and only if for every $U \in \Tau$ and $x \in U$, there is $B_x \in \B$ with $x \in B_{x, U} \subseteq U$.
+    A subset $\B \subseteq \Tau$ is a basis for $X$ if and only if for every $U \in \Tau$ and $x \in U$, there is $B_{x, U} \in \B$ with $x \in B_{x, U} \subseteq U$.
 \end{lemma}
-\begin{proof}
-    If $\B \subseteq \Tau$ is a basis for $X$, each $U = \bigcup_{B \in \B_U}B$ for some $\B_U \subseteq \B$, and so each $x \in U$ has some $B$ (which we call $B_{x, U}$) so that $x \in B_{x, U} \subseteq \B_u$. Alternatively, if $\B$ has the latter property, then each $U = \bigcup_{x \in U} B_{x, U}$.
-\end{proof}
+% \begin{proof}
+%     If $\B \subseteq \Tau$ is a basis for $X$, each $U = \bigcup_{B \in \B_U}B$ for some $\B_U \subseteq \B$, and so each $x \in U$ has some $B$ (which we call $B_{x, U}$) so that $x \in B_{x, U} \subseteq \B_u$. Alternatively, if $\B$ has the latter property, then each $U = \bigcup_{x \in U} B_{x, U}$.
+% \end{proof}
 If $X$ is a set, we may also ask what collections of subsets of $X$ form bases for topologies, and this is answered exactly in the following result.
 \begin{proposition}
     A subset $\B \subseteq \P(X)$ is a basis for a (unique) topology on $X$ if and only if
@@ -218,51 +223,100 @@ If $X$ is a set, we may also ask what collections of subsets of $X$ form bases f
         \item For all $B_1, B_2 \in \Tau$ and $x \in B_1 \cap B_2$, there is $B_3$ with $x \in B_3 \subseteq B_1 \cap B_2$.
     \end{enum}
 \end{proposition}
-\begin{proof}
-    If $\B$ is a basis for some topology $\Tau$, then $X$ is a union of some sets in $\B$, so 
-    $$
-        X = \bigcup_{B \in \B_i}B \subseteq \bigcup_{B \in \B}B
-    $$
-    for some $\B_i \subseteq \B$ and each $B \subseteq X$, so $\bigcup_{B \in \B_i}B \subseteq X$, showing this equality. If $B_1, B_2 \in \B$, then $B_1 \cap B_2 = \bigcup_{B \in B_i}B$ for some $\B_i \subseteq \B$, and so each $x \in B_1 \cap B_2$ is in some $B_3 \in \B_i \subseteq \B$.
+% \begin{proof}
+%     If $\B$ is a basis for some topology $\Tau$, then $X$ is a union of some sets in $\B$, so 
+%     $$
+%         X = \bigcup_{B \in \B_i}B \subseteq \bigcup_{B \in \B}B
+%     $$
+%     for some $\B_i \subseteq \B$ and each $B \subseteq X$, so $\bigcup_{B \in \B_i}B \subseteq X$, showing this equality. If $B_1, B_2 \in \B$, then $B_1 \cap B_2 = \bigcup_{B \in B_i}B$ for some $\B_i \subseteq \B$, and so each $x \in B_1 \cap B_2$ is in some $B_3 \in \B_i \subseteq \B$.
 
-    Now suppose that $\B$ satisfies the two given constraints. Then
-    \begin{enum}
-        \item $\bigcup_{B \in \emptyset} B = \emptyset$ and $\bigcup_{B \in \B} B = X$;
-        \item If $B_i = \bigcup_{B \in \B_i} B$ for a collection of subsets $\set{B_i \mid i \in I}$, then $\bigcup_{i \in I} \B_i \subseteq \B$, and
-        $$
-            \bigcup_{i \in I} B_i = \bigcup_{B \in \bigcup_{i \in I} \B_i} B
-        $$
-        \item It suffices to show that $B_1 \cap B_2$ is a union of sets from $\B$. For each $x \in B_1 \cap B_2$ there is $B_x \in \B$ with $x \in B_x \subseteq B_1 \cap B_2$, and so writing
-        $$
-            \B_{12} = \set{B_x \mid x \in B_1 \cap B_2} \subseteq \B
-        $$
-        we have
-        $$
-            B_1 \cap B_2 = \bigcup_{x \in B_1 \cap B_2} B_x = \bigcup_{B \in \B_{12}} B
-        $$
-    \end{enum}
-\end{proof}
-
+%     Now suppose that $\B$ satisfies the two given constraints. Then
+%     \begin{enum}
+%         \item $\bigcup_{B \in \emptyset} B = \emptyset$ and $\bigcup_{B \in \B} B = X$;
+%         \item If $B_i = \bigcup_{B \in \B_i} B$ for a collection of subsets $\set{B_i \mid i \in I}$, then $\bigcup_{i \in I} \B_i \subseteq \B$, and
+%         $$
+%             \bigcup_{i \in I} B_i = \bigcup_{B \in \bigcup_{i \in I} \B_i} B
+%         $$
+%         \item It suffices to show that $B_1 \cap B_2$ is a union of sets from $\B$. For each $x \in B_1 \cap B_2$ there is $B_x \in \B$ with $x \in B_x \subseteq B_1 \cap B_2$, and so writing
+%         $$
+%             \B_{12} = \set{B_x \mid x \in B_1 \cap B_2} \subseteq \B
+%         $$
+%         we have
+%         $$
+%             B_1 \cap B_2 = \bigcup_{x \in B_1 \cap B_2} B_x = \bigcup_{B \in \B_{12}} B
+%         $$
+%     \end{enum}
+% \end{proof}
+The only issue with directly building a topology from declaring an arbitrary subset $S \subseteq X$ to be a basis is that it may not be closed under finite intersections, which the second point of the above proposition deals with. We can still build a topology on a set by declaring some subset as a ``generating set'', though we require this additional closure under finite intersections.
+\begin{definition}[Subbasis]
+    Let $X$ be a set, and $S \subseteq X$. Then $S$ is a subbasis for the topology with basis
+    $$
+        \mathcal{S} = \set{\bigcap_{i = 1}^n S_i \mid S_i \in S, n \in \N_0}
+    $$
+\end{definition}
+This is indeed a basis (with the convention that the empty intersection is $X$), and so we have the following result.
+\begin{lemma}
+    Let $S \subseteq X$. Then the topology on $X$ with basis $\mathcal{S}$ is the minimal topology on $X$ so that every set in $S$ is open.
+\end{lemma}
+Here we have referred to minimality (with respect to inclusion), which plays an important role in defining topologies: when defining topologies we would ideally have the number of open sets be as small as possible. In this case we want $S$ to ``generate'' the topology, and later on when we discuss continuous maps, the purpose will be to characterise these topologies through abstract properties.
 
 % Basis reformulation
 % Topology basis lemma
-
 % Subbases
-
 % Open sets are ``large'' and closed sets are ``small''
-
 % Open sets can be viewed (from internally) as ``unbounded'', while closed sets have some notion of ``boundary''.
-
 % Bases and ``spanning''
-
 % Equivalent formulation for a basis
-
 % Density
 
 \subsection{Continuous maps}
+To define morphisms between topological spaces, we return to the notion of continuous maps. Recall that continuous maps in metric spaces are defined by the following:
+\begin{center}
+    \emph{A function $f : X \to Y$ is continuous at a point $x$ if for every $\e > 0$, there is $\delta > 0$ so that if $d_X(x, x') < \delta$, then $d_Y(f(x), f(x')) < \e$.}
+\end{center}
+The statement that $d_X(x, x') < \delta$ can be reformulated as $x' \in B^X_\delta(x)$ and $d(f(x), f(x')) < \e$ as $f(x') \in B^Y_\e(f(x))$, so we have the following formulation with open balls:
+\begin{center}
+    \emph{A function $f : X \to Y$ is continuous at a point $x$ if for every $\e > 0$, there is $\delta > 0$ so that $f(B_\delta^X(x)) \subseteq B^Y_\e(f(x))$.}
+\end{center}
+Recalling that neighbourhoods are the generalisation of open balls to topological spaces, we have the following definition.
+\begin{definition}[Continuous]
+    A function $f : X \to Y$ is \emph{continuous at $x \in X$} if for every neighbourhood $U' \ni f(x)$, there is a neighbourhood $U \ni x$ with $f(U) \subseteq U'$. The function $f$ is \emph{continuous} if it is continuous at all $x \in X$.
+\end{definition}
+As a reasonable notion of a morphism, we should expect the following result.
+\begin{lemma}
+    If $f : X \to Y$ and $g : Y \to Z$ are continuous functions, then so is $g \circ f : X \to Z$.
+\end{lemma}
+We have the following (somewhat trivial) diagram of continuous maps:
+\begin{center}
+\begin{tikzcd}
+    X \arrow[r, "f"] \arrow[rd, "g \circ f"'] & Y \arrow[d, "g"] \\
+     & Z
+\end{tikzcd}
+\end{center}
+The above definition conveniently shows how continuity comes about from the metric space definition, but isn't immediately useful beyond the following result. To begin with, we have the following reformulations.
+\begin{proposition}
+    Let $f : X \to Y$.
+    \begin{enum}
+        \item $f$ is continuous at $x$ if and only if for every neighbourhood $U \ni f(x)$, $f^{-1}(U)$ is a neighbourhood of $x$.
+        \item The following are equivalent.
+        \begin{enum2}
+            \item $f$ is a continuous map.
+            \item If $O \subseteq Y$ is open, then so is $f^{-1}(O) \subseteq X$.
+            \item If $C \subseteq Y$ is open, then so is $f^{-1}(C) \subseteq X$.
+        \end{enum2}
+    \end{enum}
+\end{proposition}
+% Remark about languages
+
+
+
 
 % Continuity from a metric and algebraic perspective
+% Preimage of a topology
+
 % Classical metric space formulation
+
+% For every neighbourhood $U \ni f(x)$, there is a neighbourhood $U' \ni x$ with $f(U') \subseteq U$.
 
 % ``Arrows'' i.e. morphisms
 % Pullbacks of open sets, compatibilities of topologies
@@ -270,13 +324,13 @@ If $X$ is a set, we may also ask what collections of subsets of $X$ form bases f
 % Equivalent formulations
 
 % Homeomorphisms specifying that topological properties are fully preserved
-% Remark about languages
 
 % Bases, subbases
 
 \subsection{Separability}
 % Separable, first and second countability, T1 through to T4 spaces.
 
+% Induced Hausdorff space
 \subsection{Induced topologies}
 
 % Subspaces, products, quotients (universal properties)
