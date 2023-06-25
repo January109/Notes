@@ -1,0 +1,73 @@
+\documentclass[11pt]{article}
+\usepackage{styles} 
+\renewcommand{\F}{\mathcal{F}}
+\title{Some good-to-know results for functional analysis}
+\begin{document}
+\maketitle
+\subsection*{Uniform equicontinuity and the Arzela-Ascoli theorem}
+Recall that for metric spaces $X$ and $Y$, a set $\F$ of functions $f : X \to Y$ is \emph{uniformly equicontinuous} if for every $\e > 0$, there is $\delta > 0$ so that if $d_X(x_1, x_2) < \delta$, then $d_Y(f(x_1), f(x_2)) < \e$ for all $f \in \F$.
+
+In full generality, we have the following remarkable statement.
+\begin{theorem}[Arzela-Ascoli]
+    Let $X$ be a complete metric space. Then a subset $\F \subseteq C(X, \R^n)$ is compact if and only if it is closed, bounded and uniformly equicontinuous.
+\end{theorem}
+We also have the following weaker equivalence as a result, by considering closures. We say that a subset $S$ of a metric space $X$ is \emph{pre-compact} (or relatively compact) if every sequence in $S$ has a convergent subsequence (with limit in $X$), or equivalently if it has compact closure.
+\begin{corollary}
+    If $X$ is a complete metric space, then a subset $\F \subseteq C(X, \R^n)$  is bounded and uniformly equicontinuous if and only if it is pre-compact.
+\end{corollary}
+\subsection*{Some measure theory inequalities}
+We summarise some key inequalities in abstract measure theory; the background details of abstract measure theory are given in the section below.
+
+On the space of measurable functions $X \to [-\infty, \infty]$ (or alternatively to $\C \cup \set{\infty}$), for each $p \in [1, \infty]$ we have a norm\footnote{Though knowledge that this formula defines a norm only follows from Minkowski's inequality} given by
+\begin{align}\label{lp}
+    \norm{f}_p \defeq \brac{\int_X\abs{f}^pd\mu}^{1/p}
+\end{align}
+for $p < \infty$, and $\norm{f}_\infty = \sup_{x \in X}\abs{f(x)}$ is the usual sup-norm; these yield the spaces $L^p(X, \mu)$ (defined in the natural way). We then have H\"older's inequality:
+\begin{theorem}[Holder's inequality]
+    Let $(X, \Sigma, \mu)$ be a measure space, and $f, g$ be measurable real or complex-valued functions, and $p, q \in [1, \infty]$ be such that $\frac1p + \frac1q = 1$. Then
+    $$
+        \norm{fg}_1 \leq \norm{f}_p\norm{g}_q
+    $$
+\end{theorem}
+We can apply this to see that (\ref{lp}) defines a norm:
+\begin{theorem}[Minkowski's inequality]
+    Let $(X, \Sigma, \mu)$ be a measure space, and $f, g$ be measurable real or complex-valued functions, and $p \in [1, \infty]$. Then
+    $$
+        \norm{f + g}_p \leq \norm{f}_p + \norm{g}_p
+    $$
+\end{theorem}
+\subsection*{Abstract measure theory background}
+We first define some of the basic notions of abstract measure theory, before describing some important inequalities. For a set $X$ and $\Sigma$ a $\sigma$-algebra on $X$, we say a function $\mu : \Sigma \to [0, \infty]$ is a \emph{measure} if
+\begin{enum}
+        \item (Non-negativity) $\mu(\emptyset) = 0$; and
+        \item (Countable additivity) If $\set{E_k}_{k = 1}^\infty$ is a collection of disjoint sets in $\Sigma$, then
+        $$
+            \mu\brac{\coprod_{k = 1}^\infty E_k} = \sum_{k = 1}^\infty \mu(E_k)
+        $$
+\end{enum}
+We say that the triple $(X, \Sigma, \mu)$ is a \emph{measure space}, and that $\Sigma$ is the set of \emph{measurable sets}. Given a measure space $(X, \Sigma, \mu)$, we say a function $f : X \to [-\infty, \infty]$ is \emph{measurable} if $f^{-1}[-\infty, a)$ is measurable for every $a \in \R$. The space of measurable functions $X \to [-\infty, \infty]$ has the same closure properties as in the Euclidean case: it is closed under pointwise addition and multiplication, suprema, infima and hence also limsup and liminfs.
+
+We can then define the integral for measurable functions in stages as in the Euclidean case:
+\begin{enum}
+    \item If $f = \sum_{i = 1}^n a_i\chi_{E_i}$ is a simple function, then 
+    $$
+        \int_X f d\mu \defeq \sum_{i = 1}^n a_i\mu(E_i)
+    $$
+    \item If $f$ is bounded and supported on a measurable set of finite measure, then 
+    $$
+        \int_X fd\mu \defeq \lim_{n \to \infty}\int_X \varphi_nd\mu
+    $$ for any sequence $\varphi_n \to f$ pointwise almost everywhere;
+    \item If $f$ is non-negative, then 
+    $$
+        \int_X fd\mu \defeq \sup_{\substack{0 \leq g \leq f \\ g \text{ as in }(2)}} \int_X gd\mu
+    $$
+    \item If $f$ is measurable, letting $f^\pm = \max(0, \pm f)$ (so that $f = f^+ - f^-$),
+    $$
+        \int_X fd\mu \defeq \int_X f^+d\mu - \int_X f^-d\mu
+    $$
+\end{enum}
+In a similar vein, a complex-valued function $f = u + iv$ is measurable if the components $u$ and $v$ are measurable, and its integral is 
+$$
+    \int_X f d\mu = \int_X u d\mu + i\int_X v d\mu
+$$
+\end{document}
