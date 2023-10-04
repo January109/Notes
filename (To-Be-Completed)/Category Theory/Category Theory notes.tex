@@ -4,6 +4,43 @@
 \begin{document}
 \maketitle
 \tableofcontents
+\begin{abstract}
+    This will be a collection of random category theory junk that I find useful.
+\end{abstract}
 \section{Foundations}
 Informally, view a category as a transitively closed directed graph.
+
+\begin{definition}[Universal arrow]
+    Let $\f : C \to D$ be a functor, and $d$ be an object of $D$. A \emph{universal arrow from $d$ to $\f$} is a pair $(r, u)$ where 
+    \begin{enum}
+    \item $r$ is an object in $C$;
+    \item $u : d \to \f r$ is an arrow in $D$; and
+    \item For any pair $(c, f)$ with $c$ an object in $C$ and $f : d \to \f c$ an arrow of $D$, there is a unique arrow $f' : r \to c$ of $C$ with $\f f' \circ u = f$.
+    \end{enum}
+    % \begin{center}
+    % \begin{tikzcd}
+    %     r \arrow[dd, dashed, "\exists!"] \\
+    %      & \arrow[r, ] \\
+    %     c &
+    % \end{tikzcd}
+    % \end{center}
+\end{definition}
+
+\section{Limits and colimits}
+\subsection{Limits in algebraic objects}
+We assume for the following definitions (until otherwise stated) that we are considering some collection of algebraic objects.
+\begin{definition}[Direct system]
+    A \emph{direct system} is a pair $\lrangle{A_i, f_{ij}}$ where $\set{A_i}_{i \in I}$ be a family of objects indexed by a poset $\lrangle{I, \leq}$ be a poset, and $f_{ij} : A_i \to A_j$ are homomorphisms for $i \leq j$ with
+    \begin{enum}
+        \item $f_{ii} = 1_{A_i}$; and
+        \item $f_{ik} = f_{jk} \circ f_{ij}$ whenever $i \leq j \leq k$.
+    \end{enum}
+\end{definition}
+\begin{definition}
+    Let $\lrangle{A_i, f_{ij}}$ be a directed system. Define an equivalence relation $\sim$ on $\bigsqcup A_i$ by $x_i \sim x_j$ iff there is $i, j \leq k$ with $f_{ik}(x_i) = f_{jk}(x_j)$. The \emph{direct limit} or \emph{colimit} $\varinjlim A_i$ is then
+    $$
+        \varinjlim A_i \defeq \bigsqcup A_i \ \big/ \sim
+    $$
+\end{definition}
+We can think of points in the direct limit as the result of following the arrows $f_{ij}$ ``to infinity''.
 \end{document}
