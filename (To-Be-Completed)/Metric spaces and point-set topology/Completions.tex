@@ -1,0 +1,65 @@
+\documentclass[11pt]{article}
+\usepackage{styles}
+\renewcommand{\x}{\mathbf{x}}
+\title{Completions and formal power series}
+\begin{document}
+\maketitle
+For any metric space $X$, we have an associated ``larger'' metric space which is \emph{complete}, that is, where every Cauchy sequence converges. This space also has an associated universal property:
+\begin{theorem}
+    Let $X$ be a metric space. Then there is a complete metric space $\ol X$ and an isometry $i : X \hookrightarrow \ol X$. Further, if $Y$ is a complete metric space and $j : X \to Y$ is a uniformly continuous injective map, then there is a unique uniformly continuous injective map $\ol j : \ol X \to Y$ such that $\ol j \circ i = j$.
+\end{theorem}
+The last condition can be described in the following diagram:
+\begin{center}
+    \begin{tikzcd}
+        X \arrow[r, hook, "j"] \arrow[d, hook, "i"] & Y \\
+        \tilde X \arrow[ru, "\exists! \tilde j", dashed, hook]
+    \end{tikzcd}
+\end{center}
+and in this sense $\ol X$ is the smallest complete metric space containing $X$, unique up to isometry. We call this $\ol X$ the \emph{completion} of $X$.
+
+To construct this space, we note that the space 
+$$
+    \mathcal{C}_X = \set{(x_n)_{n \in \N} \mid d(x_n, x_m) \xrightarrow{n, m \to \infty} 0} \subseteq X^\N
+$$
+of Cauchy sequences in $X$ has a \emph{pseudometric} (that is, a metric except potentially $\tilde d(x, y) = 0$ for $x \neq y$) given by $\tilde d((x_n), (y_n)) = \lim_{n \to \infty}(x_n - y_n)$. We then get a (genuine) metric space $\tilde X$ by taking the quotient
+$$
+    \tilde X = \frac{\mathcal{C}_X}{d((x_n), (y_n)) = 0}
+$$
+with metric $d([(x_n)], [(y_n)]) = \tilde d((x_n), (y_n))$, which is independent of representative. This space is complete as any sequence of $\x_k = [(x_{n, k})_{n \in \N}]$ converges to the diagonal sequence $\x = [(x_{n, n})]$. The isometry $i$ is given by sending $x \in X$ to the class of the constant sequence $[(x)_{n \in \N}]$. 
+
+Identifying $X$ with the dense subset $i(X) \subseteq \ol X$, for any $j : X \to Y$ injective and uniformly continuous with $Y$ complete, the map $\ol j : \ol X \to Y$ is necessarily given by $\ol j(\ol x) = \lim_{n \to \infty}j(x_n)$ for any sequence $(x_n)$ in $X$ with $i(x_n) \to \ol x$, and this is well-defined and uniformly continuous as $j$ is uniformly continuous. The injectivity of $\ol j$ follows from that of $j$.
+
+To compute the completion of a space, we have the following useful property.
+\begin{corollary}
+    Let $X$ be a metric space. If $\tilde X$ is a complete metric space and $i : X \hookrightarrow \tilde X$ is an isometry with dense image, then $\tilde X$ is the completion of $X$.
+\end{corollary}
+Since closed subspaces of complete metric spaces are themselves complete metric spaces, we have the following.
+\begin{corollary}
+    The following are equivalent.
+    \begin{enum}
+        \item $X$ is complete;
+        \item $X = \ol X$;
+        \item $X$ is closed in $\ol X$.
+    \end{enum}
+\end{corollary}
+Concretely, the metric space $X$ is constructed by ``adjoining'' the limits of Cauchy sequences, which are demonstrated in the following.
+\begin{example}
+    \begin{enum2}
+        \item Let $X = \Q$ with its usual Euclidean metric $d(x, y) = \abs{x - y}$. Then $\ol X = \R$;
+        \item If $Y$ is a complete metric space and $X \subseteq Y$, then the completion of $X$ is its closure $\ol X$;
+        \item (Formal power series) Let $R$ be an integral domain (usually $R = \R$ or $\C$), and $R(x)$ be the associated ring of rational functions. For $c > 1$, define a metric $d$ on $R(x)$ by defining $\norm{\cdot} : R(x) \to \R_{\geq 0}$ by $\norm{0} = 0$ and $\norm{(f/g)x^k} = c^{-k}$, where $x \nmid f, g$, and $d(p, q) = \norm{p - q}$. In this sense larger powers of $x$ become ``smaller'', and the associated completion $R((x))$ is the set of formal rational functions: 
+        $$
+            R((x)) = \set{\frac{\sum_{n = 0}^\infty a_nx^n}{\sum_{n = 0}^\infty b_nx^n} \ \bigg| \ a_n, b_n \in R} = \set{\sum_{n = -N}^\infty a_nx^n \ \bigg| \ N \in \Z, a_n \in R}
+        $$
+        And in particular we can use this metric space to justify the usual formal series manipulations and identities without worrying about ``genuine'' convergence. Note that the metric on $R$ as a subspace here is always the discrete metric, and not the usual metric we would associate to $R$ (as in the cases of $\Z, \R$ or $\C$);
+        \item p-adics
+    \end{enum2}
+\end{example}
+
+Formal power series
+
+p-adics
+
+m-adic completions in an arbitrary ring
+\end{document}
+% function $\tilde d : \mathcal{C}_X \times \mathcal{C}_X \to \R_{\geq 0}$ satisfying symmetry and the triangle inequality, $\tilde d(x, x) = 0$, but

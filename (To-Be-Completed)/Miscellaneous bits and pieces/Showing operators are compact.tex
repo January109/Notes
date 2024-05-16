@@ -1,0 +1,48 @@
+\documentclass[11pt]{article}
+\usepackage{styles} 
+\renewcommand{\F}{\mathcal{F}}
+\title{Compactness of operators}
+\begin{document}
+\maketitle
+Let $H_1, H_2$ be Hilbert spaces, and recall that an operator $T : H_1 \to H_2$ is \emph{compact} if one (and hence all) of the following hold:
+\begin{enum}
+    \item $\ol{T(B(0, 1))}$ is compact;
+    \item For any bounded sequence $(f_n)$ in $H_1$, $(Tf_n)$ has a convergent subsequence in $H_2$;
+    \item The image of any bounded set is pre-compact.
+\end{enum}
+Note that if $T$ is continuous (bounded) we have $T(\ol{B(0, 1)}) \subseteq \ol{T(B(0, 1))}$, and so $\ol{T(B(0, 1))} = \ol{T(\ol{B(0, 1)})}$.
+
+If $T$ has finite rank (i.e. $\dim(T(H_1)) < \infty$) then $T$ is automatically compact. In complete generality, we have the following characterisation.
+\begin{theorem}
+    Let $T : H_1 \to H_2$ be a operator. Then 
+    \begin{enum}
+        \item $T$ is compact if and only if there is a sequence $(T_n : H_1 \to H_2)_{n \in \N}$ of finite rank operators with $T_n \to T$ in operator norm; and
+        \item $T$ is compact if and only if $T^*$ is compact.
+    \end{enum}
+\end{theorem}
+In theory these should then give a way to show that any compact operator is indeed compact, but this may end up being unwieldy.
+% Complete generality - operator norm limits of finite rank operators
+% Function spaces
+\section*{The Arzela-Ascoli theorem}
+\begin{theorem}[Arzela-Ascoli]
+    Let $X$ be a compact metric space. Then a subset $\F \subseteq C(X, \R^n)$ is compact if and only if it is closed, bounded and uniformly equicontinuous.
+\end{theorem}
+Note that by the Arzela-Ascoli theorem, we can deduce compactness (an extrinsic property) from uniform continuity (intrinsic property), which is a statement about ``compatibility'' of the functions in the space $C(X, \R^n)$.
+
+Let $H_1 \subseteq C(X, \R^n), H_2 \subseteq C(Y, \R^m)$ be function spaces, and $T : H_1 \to H_2$ be an operator -- usually we will have $H_i = L^p(\Omega), C^k(\Omega)$ or a Sobolev space. To show that $T$ is compact, that is, $\ol{T(B(0, 1))}$ is compact, we have that the set $\ol{T(B(0, 1))}$ is
+\begin{enum}
+    \item bounded \emph{iff} $T$ is bounded, i.e. $\norm{T} < \infty$;
+    \item always closed; and
+    \item uniformly equicontinuous \emph{iff} $T(B(0, 1))$ is uniformly equicontinuous.
+\end{enum}
+Where the last of these follows from the more general fact that $\ol{A}$ is uniformly equicontinuous whenever $A$ is. Thus it suffices to just show that
+\begin{enum}
+    \item $T$ is bounded, i.e. there is $M$ with $\norm{Tx} \leq M\norm{x}$; and
+    \item $T(B(0, 1))$ is uniformly equicontinuous, i.e. for any $\e > 0$, there is $\delta > 0$ so that for any $f \in B(0, 1) \subseteq H_1$ and $y_1, y_2 \in Y$ with $d(y_1, y_2) < \delta$, we have
+    $$
+        \norm{Tf(y_1) - Tf(y_2)} < \e
+    $$
+\end{enum}
+% Using Arzela-Ascoli (Unpack this)
+% (Hilbert-Schmidt kernels)
+\end{document}

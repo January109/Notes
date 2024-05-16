@@ -59,45 +59,57 @@ for which the canonical inclusions $X_i \hookrightarrow X$ are isometries, but a
     X = \prod_{\a \in \Lambda} X_\a
 $$
 may not be a metric space, let alone for even larger index sets. In this sense, metric spaces are not closed under arbitrary products. To allow for a suitable notion which is closed under products, we need a more general notion independent of $\R$.
+\subsection{Quotients}
+Let $X$ be a metric space, and $A \subseteq X$ be a subspace. Consider the (set-theoretic) quotient $X / A$ given by the relation $x \sim y$ if $x = y$ or $x, y \in A$ (i.e. collapsing $A$ to a point). Ideally, we should be able to put a metric space structure on $X / A$ so that the quotient map $\pi : X \twoheadrightarrow X / A$ is continuous. This is possible if $A$ is closed by taking $d_{X/A}([x], A) = d_X(x, A)$ and $d_{X/A}([x], [y]) = d_{X/A}(x, y)$ for $x, y \not\in A$, but this definition of $d_{X / A}$ fails in general as it is possible that $d_{X/A}([x], A) = 0$ for $x \not\in A$ (though all other metric space conditions are satisfied). It turns out that $A$ being closed is exactly equivalent to $X / A$ having a metric space structure, with the metric as given above, which makes $\pi$ 1-Lipschitz.
+
+More generally, given an equivalence relation $\sim$ on a metric space $X$, $X / \sim$ does not always carry a metric space structure, though under certain conditions such a structure exists.
 \section{Topological spaces}
-Unless otherwise stated, $X, Y$ and $Z$ are topological spaces, and $\Tau_S$ (or sometimes simply $\Tau$) is the set of open sets of $S$. The definitions we give in this section are ``very loose'', and it is not difficult to find counterintuitive examples. In any case, we try to paint a certain picture with each definition and avoid counterintuitive examples, to follow a roughly intuitive and sensible progression.
+\subsection{Notation}
+Unless otherwise stated, $X, Y$ and $Z$ are topological spaces, and $\Tau_S$ (or sometimes simply $\Tau$) is the set of open sets of $S$. If $\S$ is a collection of sets, $\bigcup \S$ denotes $\bigcup_{S \in \S} S = \set{s \in S \mid S \in \S}$, and similar for $\bigcap \S$.
 \subsection{Basic definitions}
-Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still locally ``far enough'' from its edge). We abstract the properties of open sets from metric spaces, yielding the following notion.
+The basic definitions of topology are ``very loose'', and it is not difficult to find counterintuitive examples. In any case, we try to paint a certain picture with each definition and avoid counterintuitive examples, to follow a roughly intuitive and sensible progression. 
+
+Leaving only the notion of an open set, which we can think of in the same way as a metric space (i.e. a set in which every point is still locally ``far enough'' from its edge). These open sets give us a qualitative notion of ``closeness'', without being strictly quantified by a metric. We abstract the properties of open sets from metric spaces, yielding the following notion.
 \begin{definition}[Topological space]
     Let $X$ be a set. A topology $\Tau$ on $X$ is a set of subsets $\Tau \subseteq \P(X)$ satisfying
     \begin{enum}
         \item $\emptyset, X \in \Tau$;
-        \item if $\set{\U_\a}_{\a \in \Lambda}$ is a collection of sets in $\Tau$, then $\bigcup_{\a \in \Lambda} \U_\a \in \Tau$; and
-        \item if $\set{\U_i}_{i = 1}^n$ is a connection of sets in $\Tau$, then $\bigcap_{i = 1}^n \U_i \in \Tau$.
+        \item if $\set{\U_\a}_{\a \in \Lambda}$ is a collection of sets in $\Tau$, then $\bigcup\set{\U_\a \mid \a \in \Lambda} \in \Tau$; and
+        \item if $\set{\U_i}_{i = 1}^n$ is a (finite) collection of sets in $\Tau$, then $\bigcap_{i = 1}^n \U_i \in \Tau$.
     \end{enum}
     The sets in $\Tau$ are referred to as \emph{open sets}, and we say that a space $X$ equipped with a topology $\Tau$ is a \emph{topological space}.
 \end{definition}
-The notion of a topological space then naturally generalises the notion of a metric space, in the sense that any metric space is a topological space with its usual open sets. Since topological spaces are a vast generalisation of metric spaces, it is usually not hard to find cathartic or pathological examples of such spaces, though we will mostly avoid unintuitive counterexamples to make these concepts as illuminating as possible.
+The notion of a topological space then naturally generalises the notion of a metric space, in the sense that any metric space is a topological space with its usual open sets. Since topological spaces are a vast generalisation of metric spaces, it is usually not hard to find cathartic or pathological examples of such spaces. 
+%%, though we will mostly avoid unintuitive counterexamples to make these concepts as illuminating as possible.
 \begin{example}[Topological spaces]
     \begin{enum2}
-        \item If $X$ is a metric space, the open sets (in the metric sense) form a topology, and this is called the \emph{metric topology} on $X$.
+        \item If $X$ is a metric space, the open sets (in the metric sense) form a topology, and this is called the \emph{metric topology} on $X$. In particular, any inner product space or normed vector space has an associated topology, which we call the \emph{norm topology}.
         \item If $X$ is a set, we have two ``simple topologies'':
         \begin{enum2}
             \item The discrete topology is given by $\Tau = \P(X)$. This corresponds to the metric topology where $X$ is given the discrete metric.
             \item The trivial topology is given by $\Tau = \set{\emptyset, X}$. This can be thought of as treating all points in $X$ as ``close enough to be inseparable'', and when $X$ is non-empty, this is equivalent to a single-point topological space in some sense.
-        \end{enum2}
+        \end{enum2} 
     \end{enum2}
 \end{example}
+It will be easier to construct some more interesting topological spaces with some more tools, and we will return to this in example \textbf{\ref{something}}.
 
 In a metric space, to talk about the space near a given point $x$, we usually refer to the open balls $B_r(x)$. Since topological spaces are no longer tied to $\R$ (and hence have no notion of distance), we instead have the following analogue.
 \begin{definition}[Neighbourhood]
     Let $x \in X$. A \emph{neighbourhood} of $x$ is an open set $\U$ containing $x$.
 \end{definition}
-The statement that two points are in the same open set can then be viewed as saying the points are ``somewhat close'', with the notion of ``somewhat'' being slightly ambiguous (since the space $X$ is a neighbourhood of every point), though the smaller the neighbourhood, the closer two points in that neighbourhood can be thought of. As a natural generalisation of metric spaces, it will also be convenient to talk about closed sets, which we can view in the same light.
+The statement that two points are in the same open set can then be viewed as saying the points are ``somewhat close'', with the notion of ``somewhat'' being slightly ambiguous (since the space $X$ is a neighbourhood of every point), though the smaller the neighbourhood, the closer two points in that neighbourhood can be thought of. Continuing with the motivation from metric spaces:
 \begin{definition}[Closed set]
     We say that $C \subseteq X$ is \emph{closed} if $X \setminus C = C^c$ is open.
 \end{definition}
+%% As a natural generalisation of metric spaces, it will also be convenient to talk about closed sets, which we can view in the same light.
+
 % Dual to definition of open sets
 
-The above definition is relatively opaque, and appealing to our metric space intuition, we would expect a closed set to ``contain its boundary points''. To make this precise, we describe the following types of points.
+The above definition is relatively opaque, and appealing to our metric space intuition, we would expect a closed set to ``contain its boundary points'':
+%%. To make this precise, we describe the following types of points.
 % Limit points, isolated points
 \begin{definition}[Limit point; isolated point]
-    Let $A \subseteq X$ We say that a point $x \in X$ is
+    Let $A \subseteq X$. We say that a point $x \in X$ is
     \begin{enum}
         \item a \emph{limit point of $A$} if every neighbourhood $\U \ni x$ has non-empty intersection with $A \setminus \set{x}$, that is 
         $$
@@ -108,9 +120,9 @@ The above definition is relatively opaque, and appealing to our metric space int
 \end{definition}
 The limit points of a set are thus those which are ``close to the set'', captured by the notion that every open set ``nearby'' also touches the set. We can also think of these as the points which are ``approximated well'' by other points in the set. The constraint $(A \setminus \set{x}) \cap \U \neq \emptyset$ can instead be written $A \cap \U \supsetneq \set{x}$. The isolated points are then in some sense an opposite, in that they are points in the set ``far from other points'' or ``isolated from the rest of the set'', or points not ``well-approximated by other points in the set''.
 
-An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated in part by our notion of limit points. Keeping with our intuition that closed sets are those which contain their boundaries, we may expect the following result.
+%% An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated in part by our notion of limit points: % Keeping with our intuition that closed sets are those which contain their boundaries, we may expect the following result.
 \begin{proposition}
-    A subset $A \subseteq X$ is closed if and only if it contains all its limit points.
+    Let $A \subseteq X$, and $A'$ denote the limit points of $A$. Then $\ol A = A \cup A'$, and hence $A$ is closed if and only if it contains all its limit points.
 \end{proposition}
 % \begin{proof}
 %     $\implies$: Let $A$ be closed. Then $A^c$ is a neighbourhood of any $x \not\in A$ which does not meet $A$, and so as any limit point $x$ of $A$ cannot have such a neighbourhood, we must have $x \in A$.
@@ -121,9 +133,10 @@ An intuitive notion of boundary points of $A \subseteq X$ will be encapsulated i
 %     $$
 %     is open, so $A$ is closed.
 % \end{proof}
-We can generally think of the open sets as ``large'', as the sets which are ``unbounded'' when viewed from internally. On the flip side, most closed sets can generally be viewed as ``small'', or for which we could ``reach a boundary''. This way of thinking of closed sets however breaks down when talking about sets without boundaries, such as $\emptyset$ or the whole space $X$.
+We can generally think of the open sets as relatively ``large'', as the sets which are ``unbounded'' when viewed from internally. On the flip side, most closed sets can generally be viewed as ``small'', or for which we could ``reach a boundary''. This way of thinking of closed sets however breaks down when talking about sets without boundaries, such as $\emptyset$ or the whole space $X$.
 
-Continuing with this perspective, for any subset $A \subseteq X$, we can talk relatively about the smallest open set inside and outside (i.e. the ``smallest large set'' in the set and its complement), and the largest closed set containing (i.e. the ``largest small set'' containing the set). We can further talk more formally about a ``boundary'', which should be the points that are close to both the set and its boundary.
+Extending from metric spaces, we further have:
+%% Continuing with this perspective, for any subset $A \subseteq X$, we can talk relatively about the smallest open set inside and outside (i.e. the ``smallest large set'' in the set and its complement), and the largest closed set containing (i.e. the ``largest small set'' containing the set). We can further talk more formally about a ``boundary'', which should be the points that are close to both the set and its boundary.
 \begin{definition}[Interior, exterior, closure, boundary]
     Let $A \subseteq X$.
     \begin{enum}
@@ -146,13 +159,13 @@ The definitions of the interior and closure of $A$ correspond to saying that $\i
     Let $A \subseteq X$. Then
     \begin{enum}
         \item $$
-            \interior(A) = \bigcup_{O \subseteq A, O \in \Tau} O
+            \interior(A) = \bigcup\set{O \subseteq A \mid O \in \Tau}
         $$
         \item $$
-            \ol{A} = \bigcap_{C \supseteq A, C^c \in \Tau} C
+            \ol{A} = \bigcap\set{C \supseteq A \mid X \setminus C \in \Tau}
         $$
         \item $\interior(A) = (\ol{A^c})^c$, or equivalently $\ol{A} = \interior(A^c)^c = \ext(A)^c$
-        \item $\partial A = \partial A^c$
+        \item $\partial A = \partial A^c$, and $X = \interior(A) \coprod \partial A \coprod \ext(A)$.
     \end{enum}
 \end{proposition}
 % \begin{proof}
@@ -166,17 +179,27 @@ The definitions of the interior and closure of $A$ correspond to saying that $\i
 %     $$
 %     by reindexing $O \defeq C^c$. (4) follows as $\partial A^c = \ol{A^c} \cap \ol{(A^c)^c} = \ol{A} \cap \ol{A^c} = \partial A$.
 % \end{proof}
+The following proposition sharpens the usual metric space intuition for closed sets.
+\begin{proposition}
+    Let $A \subseteq X$, and let $A'$ denote the set of limit points of $A$. Then $\ol A = A \cup A'$, and hence $A$ is closed if and only if $A' \subseteq A$.
+\end{proposition}
+
 As in metric spaces, it will sometimes be easier (cardinality-wise or otherwise) to consider \emph{dense} subsets, that is, those which can ``approximate'' all points in the space. The notion is the same as in metric spaces: a subset where every point in the ambient space is a limit point.
 \begin{definition}[Dense subset]
     A subset $E \subseteq X$ is dense if $\ol{E} = X$.
 \end{definition}
 Equivalently, $E \subseteq X$ is dense if for each $x \in X$, every neighbourhood $U \ni X$ contains a point in $E$, i.e. $E \cap U \neq \emptyset$.
+
+In some cases we may endow a space $X$ with more than one topology, and we use the following descriptions in this case:
+\begin{definition}
+    Let $X$ be a set, and $\Tau_1, \Tau_2$ be topologies on $X$. If $\Tau_1 \subseteq \Tau_2$, we say $\Tau_1$ is \emph{coarser} or \emph{weaker} than $\Tau_2$, and $\Tau_2$ is \emph{finer} or \emph{stronger} than $\Tau_1$.
+\end{definition}
 \subsection{Bases}
 In other (algebraic) objects such as vector spaces and ideals in rings, it is usually equivalent and easier to consider a generating subset. In these cases we tend to prefer minimal generating subsets (such as a basis for a vector space), as a smaller generating subset tends to be more illuminating to the structure of the associated object. We have the following analogous notion in a topological space.
 \begin{definition}[Basis]
     A \emph{basis (or base) for $X$} is a subset $\B \subseteq \Tau$ with the property that for every $U \in \Tau$, there is $\B_U \subseteq \B$ such that
     $$
-        U = \bigcup_{B \in \B_U}B
+        U = \bigcup \B_U
     $$
 \end{definition}
 In this sense a basis $\B$ is a ``spanning set'' for $\Tau$ (in the sense that every $U \in \Tau$ can be reached as a union of $B \in \B$). In comparison to vector spaces we don't have a sensible notion of ``independence'' for open sets, nor is there a sensible notion of a minimal subset of $\Tau$ with the above properties in general.
@@ -216,7 +239,7 @@ We have an equivalent and sometimes more useful formulation of what it means to 
 %     If $\B \subseteq \Tau$ is a basis for $X$, each $U = \bigcup_{B \in \B_U}B$ for some $\B_U \subseteq \B$, and so each $x \in U$ has some $B$ (which we call $B_{x, U}$) so that $x \in B_{x, U} \subseteq \B_u$. Alternatively, if $\B$ has the latter property, then each $U = \bigcup_{x \in U} B_{x, U}$.
 % \end{proof}
 If $X$ is a set, we may also ask what collections of subsets of $X$ form bases for topologies, and this is answered exactly in the following result.
-\begin{proposition}
+\begin{proposition}\label{basisprops}
     A subset $\B \subseteq \P(X)$ is a basis for a (unique) topology on $X$ if and only if
     \begin{enum}
         \item $\bigcup_{B \in \B}B = X$; and
@@ -247,18 +270,29 @@ If $X$ is a set, we may also ask what collections of subsets of $X$ form bases f
 %         $$
 %     \end{enum}
 % \end{proof}
-The only issue with directly building a topology from declaring an arbitrary subset $S \subseteq X$ to be a basis is that it may not be closed under finite intersections, which the second point of the above proposition deals with. We can still build a topology on a set by declaring some subset as a ``generating set'', though we require this additional closure under finite intersections.
+It thus suffices to exhibit a basis to define a topology. This gives the following example, which is essential in functional analysis:
+\begin{example}[The weak topology on a normed vector space]
+    Let $X$ be a vector space over $\F = \R$ or $\C$ with norm $\norm{\cdot}$, and $X^* = C(X, \F) \subseteq \Hom(X, \F)$ be its dual. Then we have an associated topology $\Tau_w$ on $X$ which is minimal and makes every $x^* \in X^*$ continuous, which we can think of as being associated to ``testing elements $y \in X$ against functionals''. This is explicitly given as follows: for $n \in \N$, $\e > 0$, $x \in X$ and $x_1^*, \ldots, x_n^* \in X^*$, let
+    $$
+        V_{\e, x, x_1^*, \ldots, x_n^*} = \set{y \in X \mid \abs{x^*(x - y)} < \e}
+    $$
+    Then by \textbf{Proposition \ref{basisprops}}, the collection of all such $V_{\e, x, x_1^*, \ldots, x_n^*}$ forms a basis for a topology $\Tau_w$, which we call the \emph{weak topology}. Since every $x^* \in X^* = C(X, \F)$ is continuous with respect to the norm topology by definition, the norm topology on $X$ is stronger than the weak topology. In general, the norm topology may be strictly stronger than the weak topology.
+\end{example}
+
+The only issue with directly building a topology from declaring an arbitrary subset $S \subseteq X$ to be a basis is that it may not be closed under finite intersections, which the second point of the above proposition deals with. We can build a topology by specifying even less data, by allowing finite intersections.
+%% still build a topology on a set by declaring some subset as a ``generating set'', though we require this additional closure under finite intersections.
 \begin{definition}[Subbasis]
     Let $X$ be a set, and $S \subseteq X$. Then $S$ is a subbasis for the topology with basis
     $$
-        \mathcal{S} = \set{\bigcap_{i = 1}^n S_i \mid S_i \in S, n \in \N_0}
+        \mathcal{S} = \set{\bigcap_{i = 1}^n S_i \ \bigg| \ S_i \in S, n \in \N_0}
     $$
 \end{definition}
 This is indeed a basis (with the convention that the empty intersection is $X$), and so we have the following result.
 \begin{lemma}
     Let $S \subseteq X$. Then the topology on $X$ with basis $\mathcal{S}$ is the minimal topology on $X$ so that every set in $S$ is open.
 \end{lemma}
-Here we have referred to minimality (with respect to inclusion), which plays an important role in defining topologies: when defining topologies we would ideally have the number of open sets be as small as possible. In this case we want $S$ to ``generate'' the topology, and later on when we discuss continuous maps, the purpose will be to characterise these topologies through abstract properties.
+Here we have referred to minimality (with respect to inclusion), which plays an important role in defining topologies: when defining topologies we would ideally have the number of open sets be as small as possible, as this gives nice properties with respect to continuous maps (which we will define soon), which are the structure-preserving maps of topological spaces. 
+%% In this case we want $S$ to ``generate'' the topology, and later on when we discuss continuous maps, the purpose will be to characterise these topologies through abstract properties.
 
 % Basis reformulation
 % Topology basis lemma
@@ -272,11 +306,11 @@ Here we have referred to minimality (with respect to inclusion), which plays an 
 \subsection{Continuous maps}
 To define morphisms between topological spaces, we return to the notion of continuous maps. Recall that continuous maps in metric spaces are defined by the following:
 \begin{center}
-    \emph{A function $f : X \to Y$ is continuous at a point $x$ if for every $\e > 0$, there is $\delta > 0$ so that if $d_X(x, x') < \delta$, then $d_Y(f(x), f(x')) < \e$.}
+    \emph{A function $f : X \to Y$ is \emph{continuous at a point $x \in X$} if for every $\e > 0$, there is $\delta > 0$ so that if $d_X(x, x') < \delta$, then $d_Y(f(x), f(x')) < \e$.}
 \end{center}
-The statement that $d_X(x, x') < \delta$ can be reformulated as $x' \in B^X_\delta(x)$ and $d(f(x), f(x')) < \e$ as $f(x') \in B^Y_\e(f(x))$, so we have the following formulation with open balls:
+The statement that $d_X(x, x') < \delta$ can be reformulated as $x' \in B_X(x, \delta)$ and $d(f(x), f(x')) < \e$ as $f(x') \in B_Y(f(x), \e)$, so we have the following formulation with open balls:
 \begin{center}
-    \emph{A function $f : X \to Y$ is continuous at a point $x$ if for every $\e > 0$, there is $\delta > 0$ so that $f(B_\delta^X(x)) \subseteq B^Y_\e(f(x))$.}
+    \emph{A function $f : X \to Y$ is \emph{continuous at a point $x \in X$} if for every $\e > 0$, there is $\delta > 0$ so that $f(B_X(x, \delta)) \subseteq B_Y(f(x), \e)$.}
 \end{center}
 Recalling that neighbourhoods are the generalisation of open balls to topological spaces, we have the following definition.
 \begin{definition}[Continuous]
@@ -302,38 +336,115 @@ The above definition conveniently shows how continuity comes about from the metr
         \begin{enum2}
             \item $f$ is a continuous map.
             \item If $O \subseteq Y$ is open, then so is $f^{-1}(O) \subseteq X$.
-            \item If $C \subseteq Y$ is open, then so is $f^{-1}(C) \subseteq X$.
+            \item If $C \subseteq Y$ is closed, then so is $f^{-1}(C) \subseteq X$.
         \end{enum2}
     \end{enum}
 \end{proposition}
+Statements 2(b) and 2(c) can be taken as equivalent definitions for continuity of a map $f$, and are usually the first definitions given. Continuity is ultimately a local property, and the following sharpens this:
+\begin{theorem}
+    Let $\set{U_\a}_{\a \in \Lambda}$ be an open cover of $X$, and $f : X \to Y$. Then $f$ is continuous if and only if each $f|_{U_\a}$ is.
+\end{theorem}
+There are even more equivalent formulations of continuity, though these are less important than those above.
+\begin{proposition}
+    Let $f : X \to Y$. Then the following are equivalent.
+    \begin{enum}
+        \item $f$ is continuous;
+        \item $f$ satisfies \textbf{Prop 6. 2(b)} (or \textbf{(c)}) on a basis $\B$;
+        \item $f$ satisfies \textbf{Prop 6. 2(b)} (or \textbf{(c)}) on a subbasis $\S$;
+        \item $f(\ol A) \subseteq \ol{f(A)}$ for any $A \subseteq X$;
+        \item $\ol{f^{-1}(B)} \subseteq f^{-1}(\ol{B})$ for any $B \subseteq Y$;
+        \item $f^{-1}(\interior(B)) \subseteq \interior(f^{-1}(B))$ for any $B \subseteq Y$.
+    \end{enum}
+\end{proposition}
+We will return to continuous maps in due time, though we will now use these to endow more space with natural topologies.
 % Remark about languages
 
-
-
-
 % Continuity from a metric and algebraic perspective
-% Preimage of a topology
+% Preimage of a topology (``Induced'')
 
 % Classical metric space formulation
 
-% For every neighbourhood $U \ni f(x)$, there is a neighbourhood $U' \ni x$ with $f(U') \subseteq U$.
-
-% ``Arrows'' i.e. morphisms
+% ``Arrows'' i.e. morphisms (retractions and sections)
 % Pullbacks of open sets, compatibilities of topologies
+% Equivalent formulations (all 10)
 
-% Equivalent formulations
+% Sequence formulations
 
 % Homeomorphisms specifying that topological properties are fully preserved
+% Converse for homeomorphisms (compact, Hausdorff)
 
 % Bases, subbases
 
+% For every neighbourhood $U \ni f(x)$, there is a neighbourhood $U' \ni x$ with $f(U') \subseteq U$.
+
+% Compact-open topology; 
+\subsection{Induced topologies}
+\subsubsection{Subspaces}
+\begin{definition}
+    Let $A \subseteq X$. The \emph{subspace topology $\Tau_A$ on $A$} is the minimal topology making the inclusion $i : A \hookrightarrow X$ continuous.
+\end{definition}
+Given a map $f : X \to Y$, the associated restriction $f|_A = f \circ i$ is always continuous with the subspace topology, and the subspace topology is the unique such topology making $i$ and all such $f|_A$ continuous. We can describe this in the following diagram (where arrows indicate \emph{continuous} maps):
+\begin{center}
+\begin{tikzcd}
+    A \arrow[r, "i", hook] \arrow[rd, "f|_A", dashed] & X \arrow[d, "f"] \\
+    & Y
+\end{tikzcd}
+\end{center}
+The subspace topology is explicitly given by
+$$
+    \Tau_A = \set{O \cap A \mid O \in \Tau_X}
+$$
+\subsubsection{Products}
+We first deal with finite products.
+\begin{definition}
+    Let $X_1, \ldots, X_n$ be topological spaces. The \emph{product topology} on $X_1 \times \ldots \times X_n$ is the minimal topology making each projection $\pi_i : X_1 \times \ldots \times X_n \twoheadrightarrow X_i$ continuous.
+\end{definition}
+Given a topological space $Y$ and continuous maps $f_i : X_i \to Y$, minimality and the condition that each $\pi_i$ is continuous translates to the continuity of the map $(f_1, \ldots, f_n) : X_1 \times \ldots \times X_n \to Y$, and similar to the subspace topology, the product topology is the unique such topology making $\pi_i$, and all $n$-tuples of continuous functions $(f_1, \ldots, f_n)$ continuous. This corresponds to the following diagram.
+\begin{center}
+    \begin{tikzcd}
+        & & X_1 \times \ldots \times X_n \arrow[dd, dashed] \arrow[lld, "\pi_1", two heads] \arrow[rrd, "\pi_n", two heads] \\
+        X_1 \arrow[rrd, "f_1"] & \dots & \dots \ \ \ \ \ \ \ \ \ \ \ \dots & \dots & X_n \arrow[lld, "f_1"] \\
+        & & Y
+    \end{tikzcd}
+\end{center}
+The product topology for finitely many sets has a basis given by products of open sets:
+$$
+    \B_{X_1 \times \ldots \times X_n} = \set{U_1 \times \ldots \times U_n \mid U_i \in \Tau_{X_i}}
+$$
+To extend to \emph{infinite} products, we first need to define what we mean set-theoretically by an infinite product. If $S_1, S_2$ are sets, a function $f : S_1 \to S_2$ can be viewed as a tuple of $\abs{S_1}$ elements in $S_2$ (fixing some ordering on $S_1$). The usual product $X_1 \times \ldots \times X_n$ corresponds to the collection of maps $f : \set{1, \ldots, n} \to \bigcup_{i = 1}^n X_i$ with $f(i) \in X_i$. Replacing $\set{1, \ldots, n}$ with an arbitrary index set, we get the following.
+\begin{definition}
+    Let $\set{X_\a}_{\a \in \Lambda}$ be a collection of sets. Their (set-theoretic) \emph{product} is
+    $$
+        \prod_{\a \in \Lambda} X_\a \defeq \set{f : \Lambda \to \bigcup_{\a \in \Lambda}X_\a \ \bigg| \ f(\b) \in X_\b \text{ for all }\b \in \Lambda}
+    $$
+\end{definition}
+For $x_\a \in X_\a$, we will equivalently write $(x_\a)_{\a \in \Lambda}$ for the map $f$ sending $\a \mapsto x_\a$. As with finite products, for each $\b \in \Lambda$ we have an associated projection map $\pi_\b : \prod_{\a \in \Lambda} X_\a \twoheadrightarrow X_\b$ sending $f \mapsto f(\b)$ or equivalently $(x_\a)_{\a \in \Lambda} \mapsto x_\b$. The above definition is very closely related to the axiom of choice.
+\begin{remark}
+    For any set $X$ of sets, a \emph{choice function} is a map $f : X \to \bigcup X$ with each $f(A) \in A$. The \emph{axiom of choice} says that every such non-empty set of sets admits a choice function. This is almost exactly the statement that an arbitrary set-theoretic product is non-empty, up to replacing $\set{X_\a}_{\a \in \Lambda}$ with the index set $\Lambda$.
+\end{remark}
+We define a topology on an arbitrary product in the same way as for a finite product.
+\begin{definition}
+    Let $\set{X_\a}_{\a \in \Lambda}$ be topological spaces. The \emph{product topology} on $\prod_{\a \in \Lambda} X_\a$ is the minimal topology making each projection $\pi_\b : \prod_{\a \in \Lambda} X_\a \twoheadrightarrow X_\b$ continuous.
+\end{definition}
+Before giving an explicit description of this topology, we explore an alternative topology which we might (erroneously) expect to be the product topology. In the finite case, a basis for the product topology was given by pure products of open sets in each space. Considering the topology with basis
+$$
+    \B_0 = \set{\prod_{\a \in \Lambda} U_\a \ \bigg| \ U_\a \in \Tau_{X_\a}}
+$$
+It turns out that this topology is 
+
+\subsubsection{Quotients}
+% Subspaces, products, quotients (universal properties)
+
+
+% Patching lemma for open/closed sets
+
 \subsection{Separability}
 % Separable, first and second countability, T1 through to T4 spaces.
+% Converses to sequences
 
-% Induced Hausdorff space
-\subsection{Induced topologies}
+% 
 
-% Subspaces, products, quotients (universal properties)
+% Kolmogorov quotients
 
 \subsection{Compactness}
 
@@ -347,5 +458,13 @@ The above definition conveniently shows how continuity comes about from the metr
 % Sequences and related discussion
 %   In abstract metric space theory, sequences play an important role and are on the same level as many non-sequence constructions.
 
+% Local compactness and compactifications
+% Local constancy and connected components
+% Local path connectedness and connected implies path connected
+
 % Algebraic perspectives?
+
+% Metrization?
+
+% Metrizability
 \end{document}
